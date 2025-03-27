@@ -1,0 +1,107 @@
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    background: transparent;
+    color: white;
+}
+
+.header__title {
+    font-size: 72px;
+    font-family: 'Bangers', cursive;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header__nav {
+    display: flex;
+    gap: 10px;
+}
+
+.header__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: #FFD700;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header__btn img {
+    height: 24px;
+    width: 24px;
+}
+
+.home_icon_gif, .settings_icon_gif {
+    display: none;
+}
+
+.header__btn:hover {
+    background: white;
+}
+
+.header__btn:hover .home_icon, .header__btn:hover .settings_icon {
+    display: none;
+}
+
+.header__btn:hover .home_icon_gif, .header__btn:hover .settings_icon_gif {
+    display: flex;
+}
+
+.game__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game__canvas {
+    background: black;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: block;
+}
+
+.controls__container {
+    display: none;
+    justify-content: center;
+    gap: 16px;
+}
+
+.controls__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FF914D;
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.controls__btn img {
+    height: 40px;
+    width: 40px;
+}
+
+.controls__btn:hover {
+    background: #FFD700;
+}
+
+@media only screen and (max-width: 854px) {
+    canvas {
+        width: 100%;
+    }
+
+    .controls__container {
+        display: flex;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
+}
+

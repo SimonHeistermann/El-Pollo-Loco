@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.jpg" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.jpg" media="(prefers-color-scheme: dark)">
+
+    <title>El Pollo Loco</title>
+
+    <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+    <link rel="stylesheet" href="./style.css"/>
+    <link rel="stylesheet" href="./styles/standard.css"/>
+    <link rel="stylesheet" href="./styles/assets.css"/>
+    <link rel="stylesheet" href="./styles/footer.css"/>
+
+    <script src="./js/models/world.class.js"></script>
+    <script src="./js/models/keyboard.class.js"></script>
+    <script src="./js/models/drawable_object.class.js"></script>
+    <script src="./js/models/status_bars.class.js"></script>
+    <script src="./js/models/bottle_bar.class.js"></script>
+    <script src="./js/models/health_bar.class.js"></script>
+    <script src="./js/models/coin_bar.class.js"></script>
+    <script src="./js/models/movable_object.class.js"></script>
+    <script src="./js/models/background_object.class.js"></script>
+    <script src="./js/models/cloud.class.js"></script>
+    <script src="./js/models/character.class.js"></script>
+    <script src="./js/models/chicken.class.js"></script>
+    <script src="./js/models/endboss.class.js"></script>
+    <script src="./js/models/collectable_object.class.js"></script>
+    <script src="./js/models/collectable_bottle.class.js"></script>
+    <script src="./js/models/collectable_coin.class.js"></script>
+    <script src="./js/models/throwable_object.class.js"></script>
+    <script src="./js/models/level.class.js"></script>
+    <script src="./js/game.js"></script>
+    <script src="./js/levels/level1.js"></script>
+    <script src="./js/assets.js"></script>
+</head>
+<body onload="init()">
+    <header class="header__container">
+        <h1 class="header__title">El Pollo Loco</h1>
+        <nav class="header__nav">
+            <button class="header__btn">
+              <img class="home_icon" src="./assets/icons/home_icon_black.png" alt="🏠">
+              <img class="home_icon_gif" src="./assets/icons/home_icon_black.gif" alt="🏠">
+              Home
+            </button>
+            <button class="header__btn">
+              <img class="settings_icon" src="./assets/icons/settings_icon_black.png" alt="⚙️">
+              <img class="settings_icon_gif" src="./assets/icons/settings_icon_black.gif" alt="⚙️">
+              Settings
+            </button>
+        </nav>
+    </header>
+    <main class="main__container">
+      <div class="game__container">
+          <canvas id="canvas" class="game__canvas" width="854" height="480"></canvas>
+      </div>
+      <div class="controls__container">
+        <button class="controls__btn">
+          <img src="./assets/icons/arrow_left_icon_black.png" alt="⬅️">
+        </button>
+        <button class="controls__btn">
+          <img src="./assets/icons/arrow_right_icon_black.png" alt="➡️">
+        </button>
+        <button class="controls__btn">
+          <img src="./assets/icons/up_icon_black.png" alt="🆙">
+        </button>
+        <button class="controls__btn">
+          <img src="./assets/icons/throw_icon_black.png" alt="🎯">
+        </button>
+      </div>
+    </main>
+    <footer>
+      <div class="footer__container">
+          <div class="footer__containerbottom">
+              <span class="footer__credits">created by Simon Heistermann &copy;</span>
+              <a class="footer__linksextra" href="https://icons8.com/" target="_blank" rel="noopener noreferrer">Icons by icons8.com</a>
+          </div>
+      </div>
+  </footer>
+</body>
+</html>
