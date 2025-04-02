@@ -1,19 +1,19 @@
-class Chicken extends MovableObject {
-    height = 122;
-    width = 124;
+class Poults extends MovableObject {
+    height = 81.3;
+    width = 82.67;
     y = 480 - this.height - 40;
     groundLevel = 480 - this.height - 40;
     IMAGES_WALKING = [
-        '../assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
-        '../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
-        '../assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
+        '../assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        '../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        '../assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
     ];
     IMAGE_DEAD = [
-        '../assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
+        '../assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];
-    chickenSpeed = 0.15 + Math.random() * 0.25;
+    poultSpeed = 0.15 + Math.random() * 0.25;
     animationInterval = null;
-    offset = { top: 5, left: 5, right: 5, bottom: 5 };
+    offset = { top: 10, left: 10, right: 10, bottom: 10 };
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -23,7 +23,7 @@ class Chicken extends MovableObject {
     }
 
     animate() {
-        this.moveLeft(this.chickenSpeed);
+        this.moveLeft(this.poultSpeed);
         this.animationInterval = setInterval(() => { 
             this.playAnimation(this.IMAGES_WALKING);
         }, 150);

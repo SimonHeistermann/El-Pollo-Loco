@@ -20,7 +20,7 @@ class CollectableBottle extends CollectableObject {
     }
 
     getRandomX(edgeX, segmentWidth) {
-        let minX = Math.max(800, edgeX); 
+        let minX = Math.max(400, edgeX); 
         let maxX = edgeX + segmentWidth;
         let distance = Math.floor(Math.random() * 101) + 300;
         let newX;

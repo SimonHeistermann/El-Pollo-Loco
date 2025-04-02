@@ -66,13 +66,14 @@ class Character extends MovableObject {
     offset = {
         top: 120,
         bottom: 30,
-        left: 40, 
-        right: 80
+        left: 50, 
+        right: 100
     }
 
     constructor(world) {
         super().loadImage( '../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
@@ -104,29 +105,34 @@ class Character extends MovableObject {
     
     startAnimation() {
         let lastAnimation = null;
+        let idleTimer = null;
         setInterval(() => {
-            let newAnimation;
-            let speed;
-            if (this.isDead()) {
-                newAnimation = this.IMAGES_DEAD;
-                speed = 200;
-            } else if (this.isHurt()) {
-                newAnimation = this.IMAGES_HURT;
-                speed = 200;
-            } else if (this.isAboveGroundLevel()) {
-                newAnimation = this.IMAGES_JUMPING;
-                speed = 100;
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                newAnimation = this.IMAGES_WALKING;
-                speed = 50;
-            } else {
-                newAnimation = this.IMAGES_IDLE;
-                speed = 2000;
-            }
+            let { newAnimation, speed } = this.getCurrentAnimation();
+            idleTimer = this.handleIdleTimer(newAnimation, idleTimer);
             if (newAnimation !== lastAnimation) {
                 lastAnimation = newAnimation;
                 this.playAnimationWithSpeed(newAnimation, speed);
             }
-        }, 50);
+        }, 25);
     }
+    
+    getCurrentAnimation() {
+        if (this.isDead()) return { newAnimation: this.IMAGES_DEAD, speed: 200 };
+        if (this.isHurt()) return { newAnimation: this.IMAGES_HURT, speed: 200 };
+        if (this.isAboveGroundLevel()) return { newAnimation: this.IMAGES_JUMPING, speed: 60 };
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) return { newAnimation: this.IMAGES_WALKING, speed: 50 };
+        return { newAnimation: this.IMAGES_IDLE, speed: 2000 };
+    }
+    
+    handleIdleTimer(newAnimation, idleTimer) {
+        if (newAnimation !== this.IMAGES_IDLE) {
+            clearTimeout(idleTimer);
+            return null;
+        }
+        if (!idleTimer) {
+            idleTimer = setTimeout(() => this.playAnimationWithSpeed(this.IMAGES_LONG_IDLE, 300), 12500);
+        }
+        return idleTimer;
+    }
+    
 }

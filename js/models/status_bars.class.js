@@ -6,7 +6,7 @@ class StatusBars extends DrawableObject {
     IMAGES_BLUE = [];
     IMAGES_GREEN = [];
     IMAGES_ORANGE = [];
-    percentage = 100;
+    percentage;
 
     constructor() {
         super();

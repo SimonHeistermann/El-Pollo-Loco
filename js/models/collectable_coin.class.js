@@ -3,34 +3,18 @@ class CollectableCoin extends CollectableObject {
         '../assets/img/8_coin/coin_1.png',
         '../assets/img/8_coin/coin_2.png'
     ];
-    static spawnedPositions = [];
-
-    constructor(edgeX, segmentWidth) {
-        super();
-        this.x = this.getRandomX(edgeX, segmentWidth);
-        this.y = 340;
-        this.height = 120;
-        this.width = 120;
+    offset = {
+        top: 80,
+        left: 80,
+        right: 80,
+        bottom: 80
     }
 
-    getRandomX(edgeX, segmentWidth) {
-        let minX = Math.max(800, edgeX); 
-        let maxX = edgeX + segmentWidth;
-        let distance = Math.floor(Math.random() * 101) + 300;
-        let newX;
-        let attempts = 0;
-        do {
-            newX = Math.floor(Math.random() * (maxX - minX) + minX);
-            if (newX - minX < distance) {
-                newX = minX + distance;
-            }
-            attempts++;
-            if (attempts > 50) return null;
-    
-        } while (
-            CollectableCoin.spawnedPositions.some(pos => Math.abs(pos - newX) < distance)
-        );
-        CollectableCoin.spawnedPositions.push(newX);
-        return newX;
+    constructor(x, y) {
+        super().loadImage(this.getRandomImage(this.IMAGES_COINS));
+        this.x = x;
+        this.y = y;
+        this.height = 200;
+        this.width = 200;
     }
 }

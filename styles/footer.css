@@ -1,5 +1,5 @@
 footer {
-    min-height: 60px;
+    min-height: 80px;
     background: transparent;
     display: flex;
     align-items: center;
@@ -17,6 +17,13 @@ footer {
 
 .footer__containerbottom {
     display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer__containerbottom__box {
+    display: flex;
     gap: 16px;
 }
 
@@ -24,6 +31,9 @@ footer {
     color: #6D6D6D;
     opacity: 70%;
     text-decoration: none;
+    font-family: 'Fredoka', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    transition: color 125ms ease-in-out;
 }
 
 .footer__linksextra:hover, .footer__linksextra:active {
@@ -41,8 +51,9 @@ footer {
         padding: 16px 0px;
     }
 
-    .footer__containerbottom {
+    .footer__containerbottom__box {
         align-items: center;
         flex-direction: column;
+        gap: 8px;
     }
 }

@@ -10,8 +10,10 @@ class MovableObject extends DrawableObject {
         right: 0,
         bottom: 0
     }
-    energy = 100;
+    energy = 1000;
     lastHit = 0;
+    gravityInterval;
+    lastBottleHit;
 
     constructor() {
         super();
@@ -19,9 +21,10 @@ class MovableObject extends DrawableObject {
 
     applyGravity(groundLevel) {
         this.groundLevel = groundLevel;
-        const gravityInterval = 1000 / currentHz;
+        const gravityIntervalTime = 1000 / currentHz;
         const adjustedAccelerationY = this.accelerationY * speedFactor;
-        setInterval(() => {
+        this.gravityInterval = setInterval(() => {
+            this.lastY = this.y;
             if (this.isAboveGroundLevel() || this.speedY > 0) {
                 this.speedY -= adjustedAccelerationY;
                 this.y -= this.speedY;
@@ -29,8 +32,9 @@ class MovableObject extends DrawableObject {
                 this.y = groundLevel;
                 this.speedY = 0;
             }
-        }, gravityInterval);
+        }, gravityIntervalTime);
     }
+    
 
     isAboveGroundLevel() {
         if (this instanceof ThrowableObject) return true;
@@ -40,6 +44,7 @@ class MovableObject extends DrawableObject {
     removeObject() {
         clearInterval(this.throwInterval);
         clearInterval(this.gravityInterval);
+        this.speedY = 0;
         let index = world.throwableObjects.indexOf(this);
         if (index > -1) {
             world.throwableObjects.splice(index, 1);
@@ -48,15 +53,41 @@ class MovableObject extends DrawableObject {
 
     isColliding(obj) {
         return (
-            this.x + this.offset.left + this.width - this.offset.right >= obj.x &&
-            this.x + this.offset.left <= obj.x + obj.width &&
-            this.y + this.offset.top + this.height - this.offset.bottom >= obj.y &&
-            this.y + this.offset.top <= obj.y + obj.height
+            this.x + this.offset.left + this.width - this.offset.right >= obj.x + obj.offset.left &&
+            this.x + this.offset.left <= obj.x + obj.width - obj.offset.right &&
+            this.y + this.offset.top + this.height - this.offset.bottom >= obj.y + obj.offset.top &&
+            this.y + this.offset.top <= obj.y + obj.height - obj.offset.bottom
         );
     }
+    
+    isJumpingOn(obj) {
+        let puffer = 50;
+        if(obj instanceof Poults) puffer = 40;
+        return (
+            this.lastY < this.y && 
+            this.y + this.height - this.offset.bottom >= obj.y + obj.offset.top &&
+            this.y + this.height - this.offset.bottom <= obj.y + obj.offset.top + puffer &&
+            this.x + this.width - this.offset.right > obj.x + obj.offset.left && 
+            this.x + this.offset.left < obj.x + obj.width - obj.offset.right
+        );
+    }
+    
+    bounce() {
+        this.speedY = 15; 
+    }
 
-    isHitting() {
+    bottleHit() {
+        this.lastBottleHit = new Date().getTime();
+    }
 
+    isSplashing() {
+        let timePassed = new Date().getTime() - this.lastBottleHit;
+        timePassed = timePassed / 1000;
+        return timePassed < 1;
+    }
+
+    bottleHasHitGround() {
+        return this.y > 280;
     }
 
     hit() {
@@ -76,6 +107,16 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+    }
+
+    collect(collectable) {
+        if (collectable instanceof CollectableBottle) {
+            let currentPercentage = this.world.bottleBar.percentage;
+            this.world.bottleBar.setPercentage(currentPercentage + 10);
+        } else if(collectable instanceof CollectableCoin) {
+            let currentPercentage = this.world.coinBar.percentage;
+            this.world.coinBar.setPercentage(currentPercentage + 2);
+        }
     }
     
     moveLeft(speed) {
@@ -100,6 +141,11 @@ class MovableObject extends DrawableObject {
     movingLeft() {
         this.x -= this.characterSpeed / speedFactor;
         this.otherDirection = true;
+    }
+
+    displayImage(imagePath) {
+        let path = imagePath;
+        this.img = this.imageCache[path];
     }
 
     playAnimation(images) {

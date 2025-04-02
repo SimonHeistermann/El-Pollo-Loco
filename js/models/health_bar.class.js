@@ -23,28 +23,29 @@ class HealthBar extends StatusBars {
         '../assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png',
         '../assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'
     ];
-    percentage = 100;
-
 
     constructor() {
         super().loadImages(this.IMAGES_BLUE);
         this.loadImages(this.IMAGES_GREEN);
         this.loadImages(this.IMAGES_ORANGE);
         this.y = this.height - 15;
-        this.setPercentage(100);
+        this.percentage = returnHealthPercentage();
+        this.setPercentage(1000);
     }
 
     setPercentage(percentage) {
-        this.percentage = percentage;
-        let images = this["IMAGES_" + colorSetting];
-        let index = this.resolveImageIndex();
-        if (images) {
-            this.img = this.imageCache[images[index]];
+        if(percentage >= 0 && percentage <= 1000) {
+            this.percentage = percentage;
+            let images = this["IMAGES_" + colorSetting];
+            let index = this.resolveImageIndex();
+            if (images) {
+                this.img = this.imageCache[images[index]];
+            }
         }
     }
 
     resolveImageIndex() {
-        return Math.floor(this.percentage / 20);
+        return Math.floor(this.percentage / 200);
     }
 
 

@@ -16,7 +16,7 @@ const keyMap = {
     "Space": "SPACE",
     "ShiftLeft": "SHIFT",
     "ShiftRight": "SHIFT",
-    "KeyB": "THROW"
+    "KeyE": "THROW"
 };
 let colorSetting = 'BLUE';
 let difficulty = 'EASY';
@@ -40,4 +40,16 @@ function returnDamage() {
     if(difficulty === 'EASY') return 1;
     if(difficulty === 'MEDIUM') return 2.5;
     if(difficulty === 'HARD') return 5;
+}
+
+function returnBottleAndCoinPercentage() {
+    if(difficulty === 'EASY') return 60;
+    if(difficulty === 'MEDIUM') return 40;
+    if(difficulty === 'HARD') return 20;
+}
+
+function returnHealthPercentage() {
+    if(difficulty === 'EASY') return 100;
+    if(difficulty === 'MEDIUM') return 80;
+    if(difficulty === 'HARD') return 40;
 }
