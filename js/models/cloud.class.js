@@ -5,7 +5,7 @@ class Cloud extends MovableObject {
     cloudSpeed = 0.0625;
 
     constructor(cloudType, x) {
-        super().loadImage(`../assets/img/5_background/layers/4_clouds/${cloudType}.png`);
+        super().loadImage(`./assets/img/5_background/layers/4_clouds/${cloudType}.png`);
         this.x = x;
         this.animate();
 
