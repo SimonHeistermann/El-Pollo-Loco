@@ -3,7 +3,7 @@ class Level {
     clouds = [];
     backgroundObjects = [];
     layers = [
-        ['./assets/img/5_background/layers/air.png', './assets/img/5_background/layers/air.png'],
+        ['./assets/img/5_background/layers/air.png'],
         ['./assets/img/5_background/layers/3_third_layer/1.png', './assets/img/5_background/layers/3_third_layer/2.png'],
         ['./assets/img/5_background/layers/2_second_layer/1.png', './assets/img/5_background/layers/2_second_layer/2.png'],
         ['./assets/img/5_background/layers/1_first_layer/1.png', './assets/img/5_background/layers/1_first_layer/2.png']
@@ -17,31 +17,60 @@ class Level {
     constructor(enemies, level_end_x) {
         this.enemies = enemies;
         this.level_end_x = level_end_x;
-        this.generateBackground(0, 2, 1);
-        this.generateBackground(-2, 2, -1);
-        this.generateClouds(0, 2, 1);
-        this.generateClouds(-2, 2, -1);
+        this.generateBackground(0, 2);
+        this.generateClouds(0, 2);
         this.lastSegmentX = this.segmentWidth * 2;
     }
 
-    generateBackground(startIndex, repeatCount, direction) {
-        if (direction === -1 && this.backgroundObjects.some(obj => obj.x < 0)) return;
-        let edgeX = this.backgroundObjects.length 
-            ? Math[direction === 1 ? 'max' : 'min'](...this.backgroundObjects.map(obj => obj.x)) + direction * this.segmentWidth 
-            : startIndex * this.segmentWidth;
+    generateBackground(startIndex, repeatCount) {
+        if (this.shouldStopGenerating()) return;
+        let edgeX = this.calculateEdgeX(startIndex);
+        let newSegments = this.createBackgroundSegments(startIndex, repeatCount, edgeX);
+        if (newSegments) {
+            this.addCollectables(edgeX);
+        }
+    }
+    
+    shouldStopGenerating() {
+        return this.backgroundObjects.some(obj => obj.x < 0);
+    }
+    
+    calculateEdgeX(startIndex) {
+        if (this.backgroundObjects.length === 0) return startIndex * this.segmentWidth;
+        return Math.max(...this.backgroundObjects.map(obj => obj.x)) + this.segmentWidth;
+    }
+    
+    createBackgroundSegments(startIndex, repeatCount, edgeX) {
         let newSegments = false;
         for (let i = 0; i < repeatCount; i++) {
-            this.layers.forEach(layer => 
-                this.backgroundObjects.push(new BackgroundObject(layer[(Math.abs(startIndex + i) + (direction === -1 ? 1 : 0)) % 2], edgeX + i * direction * this.segmentWidth - (direction === -1 ? 1 : 0)))
-            );
+            this.layers.forEach(layer => {
+                let adjustedIndex = this.getLayerImageIndex(layer, startIndex, i);
+                let xPosition = this.calculateSegmentX(edgeX, i);
+                this.backgroundObjects.push(new BackgroundObject(layer[adjustedIndex], xPosition));
+            });
             newSegments = true;
         }
-        this.lastSegmentX = Math.max(...this.backgroundObjects.map(obj => obj.x));
-        if(newSegments && direction === 1) {
-            this.addCollectableBottleToSegment(edgeX);
-            this.addCollectableCoinsToSegment(edgeX);
-        } 
+        this.updateLastSegmentX();
+        return newSegments;
     }
+    
+    getLayerImageIndex(layer, startIndex, i) {
+        return layer.length > 1 ? (Math.abs(startIndex + i) % layer.length) : 0;
+    }
+    
+    calculateSegmentX(edgeX, i) {
+        return edgeX + i * this.segmentWidth;
+    }
+    
+    updateLastSegmentX() {
+        this.lastSegmentX = Math.max(...this.backgroundObjects.map(obj => obj.x));
+    }
+    
+    addCollectables(edgeX) {
+        this.addCollectableBottleToSegment(edgeX);
+        this.addCollectableCoinsToSegment(edgeX);
+    }
+    
 
     addCollectableBottleToSegment(edgeX) {
         let bottleCount; 
@@ -129,16 +158,31 @@ class Level {
         this.collectables.push(new CollectableCoin(singleX1, singleY1));
         this.collectables.push(new CollectableCoin(singleX2, singleY2));
     }
-    
 
-    generateClouds(startIndex, repeatCount, direction = 1) {
-        if (direction === -1 && this.clouds.some(c => c.x < 0)) return;
-        let edgeX = this.clouds.length 
-            ? Math[direction === 1 ? 'max' : 'min'](...this.clouds.map(c => c.x)) + direction * 853 
+    generateClouds(startIndex, repeatCount) {
+        let edgeX = this.calculateCloudEdgeX(startIndex);
+        this.createCloudSegments(startIndex, repeatCount, edgeX);
+    }
+    
+    calculateCloudEdgeX(startIndex) {
+        return this.clouds.length 
+            ? Math.max(...this.clouds.map(c => c.x)) + 853
             : startIndex * 853;
-        for (let i = 0; i < repeatCount; i++) 
-            this.clouds.push(new Cloud((Math.abs(startIndex + i) % 2) + 1, edgeX + i * direction * 853));
+    }
+    
+    createCloudSegments(startIndex, repeatCount, edgeX) {
+        for (let i = 0; i < repeatCount; i++) {
+            let cloudType = (startIndex + i) % 2 + 1;
+            let xPosition = edgeX + i * 853;
+            this.clouds.push(new Cloud(cloudType, xPosition));
+        }
+        this.updateLastCloudX();
+    }
+    
+    updateLastCloudX() {
         this.lastCloudX = Math.max(...this.clouds.map(c => c.x));
     }
+    
+    
 
 }

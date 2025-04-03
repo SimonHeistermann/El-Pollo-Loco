@@ -8,6 +8,7 @@ class World {
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     throwableObjects = [];
+    endbossBar;
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -25,6 +26,7 @@ class World {
             this.checkCollisionsForCollectables();
             this.checkCoinBar();
             this.checkCollisionsForThrownBottles();
+            this.checkEndBossAnimation();
         }, 50)
     }
 
@@ -35,22 +37,26 @@ class World {
     }
 
     checkCollisions() {
-        let enemyHit = null;
-        this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy)) {
-                if (this.character.isJumpingOn(enemy)) {
-                    enemyHit = enemy;
-                } else {
-                    this.character.hit();
-                    this.healthBar.setPercentage(this.character.energy);
-                }
-            }
-        });
-        if (enemyHit) {
-            enemyHit.die();
-            this.character.bounce();
-        }
+        let enemyHit = this.getJumpedOnEnemy();
+        this.level.enemies.forEach(enemy => this.handleEnemyCollision(enemy));
+        if (enemyHit) this.handleEnemyDefeat(enemyHit);
     }
+    
+    getJumpedOnEnemy() {
+        return this.level.enemies.find(enemy => this.character.isColliding(enemy) && this.character.isJumpingOn(enemy)) || null;
+    }
+    
+    handleEnemyCollision(enemy) {
+        if (!this.character.isColliding(enemy) || this.character.isJumpingOn(enemy)) return;
+        this.character.hit();
+        this.healthBar.setPercentage(this.character.energy);
+        if (enemy instanceof Endboss) this.character.knockbackFromEndboss(20);
+    }
+    
+    handleEnemyDefeat(enemy) {
+        enemy.die();
+        this.character.bounce();
+    }    
 
     checkThrowObjects() {
         if(this.keyboard.THROW && this.bottleBar.percentage > 0) {
@@ -61,29 +67,34 @@ class World {
 
     checkCollisionsForThrownBottles() {
         this.throwableObjects.forEach(bottle => {
-            let enemyHit = null;
-            this.level.enemies.forEach(enemy => {
-                if (bottle.isColliding(enemy)) {
-                    enemyHit = enemy;
-                }
-            });
-            if (bottle.bottleHasHitGround()) {
-                bottle.stopThrowing();
-                bottle.bottleHit();
-                setTimeout(() => {
-                   bottle.removeObject();
-                }, 500);
-            }
-            if (enemyHit) {
-                bottle.stopThrowing();
-                bottle.bottleHit();
-                setTimeout(() => {
-                    enemyHit.die();
-                    bottle.removeObject();
-                }, 500);
-            }
+            let enemyHit = this.getHitEnemy(bottle);
+            if (bottle.bottleHasHitGround()) this.handleGroundHit(bottle);
+            if (enemyHit) this.handleEnemyHit(bottle, enemyHit);
         });
     }
+    
+    getHitEnemy(bottle) {
+        return this.level.enemies.find(enemy => bottle.isColliding(enemy)) || null;
+    }
+    
+    handleGroundHit(bottle) {
+        bottle.stopThrowing();
+        bottle.bottleHit();
+        this.removeBottleAfterDelay(bottle);
+    }
+    
+    handleEnemyHit(bottle, enemy) {
+        bottle.stopThrowing();
+        bottle.bottleHit();
+        if (enemy instanceof Endboss) enemy.hit();
+        else enemy.die();
+        this.removeBottleAfterDelay(bottle);
+    }
+    
+    removeBottleAfterDelay(bottle) {
+        setTimeout(() => bottle.removeObject(), 500);
+    }
+    
 
     checkCollisionsForCollectables() {
         for (let i = this.level.collectables.length - 1; i >= 0; i--) {
@@ -99,6 +110,23 @@ class World {
         if (this.coinBar.percentage >= 100) {
             this.coinBar.setPercentage(0);
             this.healthBar.setPercentage(100);
+        }
+    }
+
+    checkEndBossAnimation() {
+        const bufferZone = 800;
+        const endBoss = this.level.enemies.find(enemy => enemy instanceof Endboss);
+        if (endBoss && this.character.x >= endBoss.x - bufferZone) {
+            endBossReady = true;
+            this.checkForEndBossbar();
+        } else {
+            endBossReady = false;
+        }
+    }
+    
+    checkForEndBossbar() {
+        if (!this.endbossBar) {
+            this.endbossBar = new EndbossBar();
         }
     }
     
@@ -148,6 +176,7 @@ class World {
         this.addToMap(this.bottleBar);
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
+        if(this.endbossBar) this.addToMap(this.endbossBar);
         this.ctx.translate(this.camera_x, 0);
     }
 
@@ -156,28 +185,24 @@ class World {
         if (this.character.x + bufferZone > this.level.lastSegmentX) {
             let startIndex = Math.floor(this.level.lastSegmentX / this.level.segmentWidth);
             setTimeout(() => {
-                this.level.generateBackground(startIndex, 4, 1);
-            }, 50);
-        } 
-        if (this.character.x - bufferZone < Math.min(...this.level.backgroundObjects.map(obj => obj.x))) {
-            let startIndex = Math.floor(Math.min(...this.level.backgroundObjects.map(obj => obj.x)) / this.level.segmentWidth);
-            setTimeout(() => {
-                this.level.generateBackground(startIndex, 4, -1);
+                this.level.generateBackground(startIndex, 4);
             }, 50);
         }
     }
 
     checkForNewClouds() {
         const bufferZone = 2000;
-        let lastCloudX = this.level.clouds.length > 0 ? Math.max(...this.level.clouds.map(c => c.x)) : 0;
-        let firstCloudX = this.level.clouds.length > 0 ? Math.min(...this.level.clouds.map(c => c.x)) : 0;
+        let lastCloudX = this.getLastCloudX();
         if (this.character.x + bufferZone > lastCloudX) {
             let startIndex = Math.floor(lastCloudX / this.level.segmentWidth);
-            this.level.generateClouds(startIndex, 4, 1);
-        }
-        if (this.character.x - bufferZone < firstCloudX) {
-            let startIndex = Math.floor(firstCloudX / this.level.segmentWidth);
-            this.level.generateClouds(startIndex, 4, -1);
+            this.level.generateClouds(startIndex, 4);
         }
     }
+    
+    getLastCloudX() {
+        return this.level.clouds.length > 0 
+            ? Math.max(...this.level.clouds.map(c => c.x)) 
+            : 0;
+    }
+    
 }

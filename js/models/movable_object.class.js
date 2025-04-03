@@ -13,7 +13,8 @@ class MovableObject extends DrawableObject {
     energy = 1000;
     lastHit = 0;
     gravityInterval;
-    lastBottleHit;
+    lastBottleHit = 0;
+    moveLeftInterval;
 
     constructor() {
         super();
@@ -91,7 +92,7 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.energy -= returnDamage();
+        this.energy -= returnDamage(this);
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -105,8 +106,41 @@ class MovableObject extends DrawableObject {
         return timePassed < 0.5;
     }
 
+    knockbackFromEndboss(speedX) {
+        if (this.isKnockedBack) return;
+        this.isKnockedBack = true;
+        this.moveLeft(speedX);
+        this.speedY = 15;
+        setTimeout(() => {
+            this.moveLeft(0);
+            this.isKnockedBack = false;
+        }, 500);
+    }
+    
+
     isDead() {
         return this.energy == 0;
+    }
+
+    die() {
+        clearInterval(this.animationInterval);
+        this.loadImage(this.IMAGE_DEAD);
+        this.offset = { top: 60, left: 5, right: 5, bottom: 0 };
+        this.speedY = 10;
+        let fallInterval = setInterval(() => {
+            this.y += 5;
+            if (this.y > 480) {
+                clearInterval(fallInterval);
+                this.removeFromWorld();
+            }
+        }, 50);
+    }
+
+    removeFromWorld() {
+        let index = world.level.enemies.indexOf(this);
+        if (index > -1) {
+            world.level.enemies.splice(index, 1);
+        }
     }
 
     collect(collectable) {
@@ -120,8 +154,9 @@ class MovableObject extends DrawableObject {
     }
     
     moveLeft(speed) {
+        clearInterval(this.moveLeftInterval); 
         const movementPerFrame = speed / speedFactor;
-        setInterval( () => {
+        this.moveLeftInterval = setInterval( () => {
             this.x -= movementPerFrame;
         }, 1000 / currentHz);
     }

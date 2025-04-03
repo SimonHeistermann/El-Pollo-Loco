@@ -28,29 +28,5 @@ class Chicken extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }, 150);
     }
-
-    die() {
-        clearInterval(this.animationInterval);
-        this.loadImage(this.IMAGE_DEAD);
-        this.offset = { top: 60, left: 5, right: 5, bottom: 0 };
-        this.speedY = 10;
-        let fallInterval = setInterval(() => {
-            this.y += 5;
-            if (this.y > 480) {
-                clearInterval(fallInterval);
-                this.removeFromWorld();
-            }
-        }, 50);
-    }
-
-    removeFromWorld() {
-        let index = world.level.enemies.indexOf(this);
-        if (index > -1) {
-            world.level.enemies.splice(index, 1);
-        }
-    }
     
-    
-    
-
 }

@@ -52,7 +52,7 @@ class ThrowableObject extends MovableObject {
 
     startAnimation() {
         let lastAnimation = null;
-        this.animationInterval = setInterval(() => {
+        setInterval(() => {
             let newAnimation;
             let speed;
             if (this.isSplashing()) {

@@ -3,7 +3,7 @@ class Character extends MovableObject {
     width = 236;
     y = 480 - this.height - 40;
     groundLevel = 480 - this.height - 40;
-    x = 100;
+    x = 250;
     IMAGES_IDLE = [
         './assets/img/2_character_pepe/1_idle/idle/I-1.png',
         './assets/img/2_character_pepe/1_idle/idle/I-2.png',
@@ -93,7 +93,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.movingRight();
             }
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT && this.x > 125) {
                 this.movingLeft();
             }
             if ((this.world.keyboard.UP || this.world.keyboard.SPACE) && !this.isAboveGroundLevel()) {
