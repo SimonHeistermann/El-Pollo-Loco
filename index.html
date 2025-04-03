@@ -34,6 +34,7 @@
     <script src="./js/models/collectable_bottle.class.js"></script>
     <script src="./js/models/collectable_coin.class.js"></script>
     <script src="./js/models/throwable_object.class.js"></script>
+    <script src="./js/models/startscreen.class.js"></script>
     <script src="./js/models/level.class.js"></script>
     <script src="./js/game.js"></script>
     <script src="./js/levels/level1.js"></script>
@@ -58,20 +59,59 @@
     <main class="main__container">
       <div class="game__container">
           <canvas id="canvas" class="game__canvas" width="854" height="480"></canvas>
+          <div class="hud">
+            <div class="change__sound__box">
+              <button id="play_sound_btn" class="controls__btn">
+                <img src="./assets/icons/sound_mute_icon_black.png" alt="Mute">
+              </button>
+              <button id="mute_sound_btn" class="controls__btn d__none">
+                <img src="./assets/icons/sound_icon_black.png" alt="Sound">
+              </button>
+              <button id="do_not_see_mobile_controls_btn" class="controls__btn">
+                <img src="./assets/icons/eye_icon_black.png" alt="See">
+              </button>
+              <button id="see_mobile_controls_btn" class="controls__btn d__none">
+                <img src="./assets/icons/blind_icon_black.png" alt="Blind">
+              </button>
+            </div>
+            <div class="controls__container__smartphone">
+              <div class="controls__left">
+                <button class="controls__btn">
+                  <img src="./assets/icons/arrow_left_icon_black.png" alt="⬅️">
+                </button>
+                <button class="controls__btn">
+                  <img src="./assets/icons/arrow_right_icon_black.png" alt="➡️">
+                </button>
+              </div>
+              <div class="controls__right">
+                <button class="controls__btn">
+                  <img src="./assets/icons/up_icon_black.png" alt="🆙">
+                </button>
+                <button class="controls__btn">
+                  <img src="./assets/icons/throw_icon_black.png" alt="🎯">
+                </button>
+              </div>
+            </div>
+          </div>
+          <button id="start_button" class="start__button" onclick="startGame()">Start Game</button>
       </div>
       <div class="controls__container">
-        <button class="controls__btn">
-          <img src="./assets/icons/arrow_left_icon_black.png" alt="⬅️">
-        </button>
-        <button class="controls__btn">
-          <img src="./assets/icons/arrow_right_icon_black.png" alt="➡️">
-        </button>
-        <button class="controls__btn">
-          <img src="./assets/icons/up_icon_black.png" alt="🆙">
-        </button>
-        <button class="controls__btn">
-          <img src="./assets/icons/throw_icon_black.png" alt="🎯">
-        </button>
+        <div class="controls__left">
+          <button class="controls__btn">
+            <img src="./assets/icons/arrow_left_icon_black.png" alt="⬅️">
+          </button>
+          <button class="controls__btn">
+            <img src="./assets/icons/arrow_right_icon_black.png" alt="➡️">
+          </button>
+        </div>
+        <div class="controls__right">
+          <button class="controls__btn">
+            <img src="./assets/icons/up_icon_black.png" alt="🆙">
+          </button>
+          <button class="controls__btn">
+            <img src="./assets/icons/throw_icon_black.png" alt="🎯">
+          </button>
+        </div>
       </div>
     </main>
     <footer>

@@ -54,6 +54,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .game__canvas {
@@ -63,21 +64,31 @@
     display: block;
 }
 
-.controls__container {
+.controls__container, .controls__container__smartphone {
     display: none;
+    justify-content: space-between;
+    gap: 64px;
+    align-items: center;
+    width: 100%;
+}
+
+.controls__right , .controls__left {
+    display: flex;
     justify-content: center;
     gap: 16px;
+    align-items: center;
 }
 
 .controls__btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #FF914D;
+    background: #FFA700;
     color: white;
     padding: 8px;
     border-radius: 50%;
     transition: 0.3s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .controls__btn img {
@@ -88,6 +99,45 @@
 .controls__btn:hover {
     background: #FFD700;
 }
+
+.start__button {
+    position: absolute;
+    top: 87%;
+    padding: 15px 40px;
+    font-size: 24px;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 2px;
+    color: white;
+    background-color: #FFA700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease-in-out;
+}
+
+.start__button:hover {
+    background-color: #FFD700;
+    transform: scale(1.05);
+}
+
+.hud {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    width: 100%;
+    height: 100%;
+}
+
+.change__sound__box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
 
 @media only screen and (max-width: 854px) {
     canvas {
@@ -102,6 +152,14 @@
 @media only screen and (max-height: 480px) {
     canvas {
         height: 100vh;
+    }
+
+    .controls__container {
+        display: none;
+    }
+
+    .controls__container__smartphone {
+        display: flex;
     }
 }
 

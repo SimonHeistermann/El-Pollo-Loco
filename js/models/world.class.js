@@ -3,18 +3,29 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    level = level1;
+    level = null;
     bottleBar = new BottleBar();
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     throwableObjects = [];
     endbossBar;
+    startScreen = new StartScreen();
+    animationIdStartScreen = null;
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
         this.character = new Character(this);
+        this.startAnimationDrawStartScreen();
+    }
+
+    startAnimationDrawStartScreen() {
+        this.animationIdStartScreen = setInterval(() => this.drawStartScreen(), 1000 / currentHz);
+    }
+
+    initLevel(level) {
+        this.level = level;
         this.draw();
         this.runFast();
         this.runSlow();
@@ -150,6 +161,19 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
+    drawStartScreen() {
+        this.clearCanvas();
+        this.ctx.translate(this.camera_x, 0);
+        this.addStartScreen();
+        this.ctx.translate(-this.camera_x, 0);
+    }
+
+    addStartScreen() {
+        this.ctx.translate(-this.camera_x, 0);
+        if(this.startScreen) this.addToMap(this.startScreen);
+        this.ctx.translate(this.camera_x, 0);
+    }
+
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
@@ -204,5 +228,12 @@ class World {
             ? Math.max(...this.level.clouds.map(c => c.x)) 
             : 0;
     }
-    
+
+    removeStartScreen() {
+        if (this.animationIdStartScreen) {
+            clearInterval(this.animationIdStartScreen);
+            this.animationIdStartScreen = null;
+        }
+        this.startScreen = null;
+    }
 }

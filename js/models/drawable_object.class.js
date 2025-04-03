@@ -23,6 +23,11 @@ class DrawableObject {
             this.imageCache[path] = img;
         });
     }
+
+    getRandomImage(images) {
+        const randomIndex = Math.floor(Math.random() * images.length);
+        return images[randomIndex];
+    }
     
     draw(ctx) {
         if(this.otherDirection) {
