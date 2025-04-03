@@ -10,6 +10,8 @@ class World {
     throwableObjects = [];
     endbossBar;
     startScreen = new StartScreen();
+    lostScreen = new LostScreen();
+    wonScreen = new WonScreen();
     animationIdStartScreen = null;
 
     constructor(canvas, keyboard) {
@@ -38,6 +40,8 @@ class World {
             this.checkCoinBar();
             this.checkCollisionsForThrownBottles();
             this.checkEndBossAnimation();
+            this.checkIfGameIsLost();
+            this.checkIfGameIsWon();
         }, 50)
     }
 
@@ -140,6 +144,21 @@ class World {
             this.endbossBar = new EndbossBar();
         }
     }
+
+    checkIfGameIsLost() {
+        if(this.character.isDead()) {
+
+            this.endGame(lost)
+        }
+    }
+
+    checkIfGameIsWon() {
+        const endBoss = this.level.enemies.find(enemy => enemy instanceof Endboss);
+        if(endBoss.isDead()) {
+            
+            this.endGame(won)
+        }
+    }
     
     draw() {
         this.clearCanvas();
@@ -235,5 +254,35 @@ class World {
             this.animationIdStartScreen = null;
         }
         this.startScreen = null;
+    }
+
+    drawLostScreen() {
+        this.clearCanvas();
+        this.ctx.translate(this.camera_x, 0);
+        this.addLostScreen();
+        this.ctx.translate(-this.camera_x, 0);
+    }
+
+    addLostScreen() {
+        this.ctx.translate(-this.camera_x, 0);
+        if(this.lostScreen) this.addToMap(this.lostScreen);
+        this.ctx.translate(this.camera_x, 0);
+    }
+
+    drawWonScreen() {
+        this.clearCanvas();
+        this.ctx.translate(this.camera_x, 0);
+        this.addWonScreen();
+        this.ctx.translate(-this.camera_x, 0);
+    }
+
+    addWonScreen() {
+        this.ctx.translate(-this.camera_x, 0);
+        if(this.wonScreen) this.addToMap(this.wonScreen);
+        this.ctx.translate(this.camera_x, 0);
+    }
+
+    endGame(type) {
+
     }
 }
