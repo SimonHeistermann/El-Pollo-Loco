@@ -11,7 +11,7 @@ class Poults extends MovableObject {
     IMAGE_DEAD = [
         './assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];
-    poultSpeed = 0.15 + Math.random() * 0.25;
+    poultSpeed = 0.25 + Math.random() * 0.35;
     animationInterval = null;
     offset = { top: 10, left: 10, right: 10, bottom: 10 };
 

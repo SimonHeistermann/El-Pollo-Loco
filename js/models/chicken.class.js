@@ -11,7 +11,7 @@ class Chicken extends MovableObject {
     IMAGE_DEAD = [
         './assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
-    chickenSpeed = 0.15 + Math.random() * 0.25;
+    chickenSpeed = 0.25 + Math.random() * 0.45;
     animationInterval = null;
     offset = { top: 5, left: 5, right: 5, bottom: 5 };
 

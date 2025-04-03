@@ -13,7 +13,7 @@ class EndbossBar extends StatusBars {
         super().loadImages(this.IMAGE_BLUE);
         this.loadImages(this.IMAGE_GREEN);
         this.loadImages(this.IMAGE_ORANGE);
-        this.y = 10;
+        this.y = this.height ;
         this.x = 844 - this.width;
         this.setImage();
     }

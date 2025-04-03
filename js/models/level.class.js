@@ -75,12 +75,13 @@ class Level {
     addCollectableBottleToSegment(edgeX) {
         let bottleCount; 
         if(edgeX == 0) bottleCount = 1;
-        else bottleCount = Math.floor(Math.random() * 3) + 2;
+        else bottleCount = Math.floor(Math.random() * 5) + 2;
         for (let i = 0; i < bottleCount; i++) {
             if (edgeX < 400) return;
             this.collectables.push(new CollectableBottle(edgeX, this.segmentWidth));
         }
     }
+    
 
     addCollectableCoinsToSegment(edgeX) {
         if (edgeX < 400) return;
