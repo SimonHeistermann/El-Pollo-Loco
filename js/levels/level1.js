@@ -55,7 +55,6 @@ function addEnemiesInsideOfTheMap(numEnemies) {
         const enemyType = Math.random() > 0.5 ? Chicken : Poults;
         let enemy;
         let xPos;
-        // Ensure that enemy does not spawn at an already occupied position
         do {
             xPos = 800 + Math.random() * (level_end_x - 500 - 800);
         } while (occupiedPositions.has(xPos));
@@ -77,7 +76,6 @@ function addEnemiesOutsideOfTheMap(numEnemies) {
         const enemyType = Math.random() > 0.5 ? Chicken : Poults;
         let enemy;
         let xPos;
-        // Ensure enemy does not spawn at an already occupied position
         do {
             xPos = (level_end_x - 500) + Math.random() * (level_end_x / 2);
         } while (occupiedPositions.has(xPos));

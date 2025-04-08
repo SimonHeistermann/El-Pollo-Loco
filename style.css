@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 5%;
+    padding: 0px 5%;
     background: transparent;
     color: white;
 }
@@ -172,13 +172,94 @@
     object-fit: contain;
 }
 
+.rotate__hint {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000dd;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 9999;
+    padding: 2rem;
+    font-size: 1.5rem;
+    display: none;
+}
+  
+.rotate__hint img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+  
+.rotate__text {
+    font-size: 1.5rem;
+}
+
+.show__controls {
+    display: flex !important;
+}
+
+.controls__container__smartphone {
+    display: none !important;
+}
+  
+@media only screen and (max-width: 992px) and (orientation: portrait) {
+    .rotate__hint {
+        display: flex;
+    }
+
+    .main__container {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 992px) and (orientation: landscape) {
+    main {
+        margin-top: 120px !important;
+    }
+
+    .locked__landscape {
+        height: 100% !important;
+        overflow: hidden !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 !important;
+    }
+
+    .main__locked__container {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .hud {
+        padding: 8px;
+    }
+
+    .toggle__controls {
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 854px) {
     canvas {
         width: 100%;
     }
 
-    .controls__container {
-        display: flex;
+    .header__title {
+        font-size: 48px;
+    }
+
+    .header__btn {
+        padding: 4px 8px;
     }
 }
 
@@ -191,8 +272,28 @@
         display: none;
     }
 
-    .controls__container__smartphone {
-        display: flex;
+    .controls__container__smartphone.show__controls {
+        display: flex !important;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    .header__container {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) and (orientation: landscape) {
+    .controls__container {
+        display: none !important;
+    }
+
+    .controls__container__smartphone.show__controls {
+        display: flex !important;
+    }
+}
+
+
+
 

@@ -491,6 +491,7 @@ class World {
         } else if (type == 'lost') {
             this.gameLost();
         }
+        // removeLandscapeLockStyles();
     }
 
     /**

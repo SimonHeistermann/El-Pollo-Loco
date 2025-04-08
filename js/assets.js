@@ -200,4 +200,68 @@ function enableSnoreSound() {
         .catch(e => console.log('Autoplay blocked:', e));
 }
 
+/**
+ * Determines if the current device is a mobile device based on the pointer and hover capabilities.
+ * This checks for touch devices by evaluating if the device does not support hover or has a coarse pointer (e.g., touch screen).
+ * 
+ * @returns {boolean} True if the device is a mobile/touch device, otherwise false.
+ */
+function isMobile() {
+    return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+}
+
+/**
+ * Applies the styles necessary to lock the layout in landscape mode.
+ * Adds specific CSS classes to lock the screen in landscape orientation for better gameplay experience.
+ * 
+ * @returns {void}
+ */
+function applyLandscapeLockStyles() {
+    document.body.classList.add('locked__landscape');
+    document.documentElement.classList.add('locked__landscape');
+    document.querySelector('.main__container').classList.add('main__locked__container');
+}
+
+/**
+ * Removes the styles that lock the layout in landscape mode.
+ * Reverts the screen layout back to its default state after unlocking.
+ * 
+ * @returns {void}
+ */
+function removeLandscapeLockStyles() {
+    document.body.classList.remove('locked__landscape');
+    document.documentElement.classList.remove('locked__landscape');
+    document.querySelector('.main__container').classList.remove('main__locked__container');
+}
+
+/**
+ * Adds mobile-specific controls to the page if the device supports touch events.
+ * This function checks for the presence of touch support and, if present, makes mobile controls visible.
+ * 
+ * @returns {void}
+ */
+function addMobileControls() {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) {
+        document.querySelector('.controls__container__smartphone')?.classList.add('show__controls');
+    }
+}
+
+/**
+ * Toggles the visibility of the desktop controls on the page.
+ * It shows or hides the desktop controls based on the passed `show` parameter and updates the buttons for toggling visibility.
+ * 
+ * @param {boolean} show - If true, the desktop controls are displayed; if false, they are hidden.
+ * @returns {void}
+ */
+function toggleControls(show) {
+    const desktopControls = document.querySelector('.controls__container');
+    const btnHideControls = document.getElementById('do_not_see_mobile_controls_btn');
+    const btnShowControls = document.getElementById('see_mobile_controls_btn');
+    desktopControls.style.display = show ? 'flex' : 'none';
+    btnHideControls.classList.toggle('d__none', !show);
+    btnShowControls.classList.toggle('d__none', show);
+}
+
+
 

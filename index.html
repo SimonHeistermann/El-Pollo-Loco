@@ -70,10 +70,10 @@
               <button id="mute_sound_btn" class="controls__btn" onclick="toggleMute(true)">
                 <img src="./assets/icons/sound_icon_black.png" alt="Sound">
               </button>
-              <button id="do_not_see_mobile_controls_btn" class="controls__btn">
+              <button id="do_not_see_mobile_controls_btn" class="controls__btn toggle__controls d__none" onclick="toggleControls(false)">
                 <img src="./assets/icons/eye_icon_black.png" alt="See">
               </button>
-              <button id="see_mobile_controls_btn" class="controls__btn d__none">
+              <button id="see_mobile_controls_btn" class="controls__btn toggle__controls" onclick="toggleControls(true)">
                 <img src="./assets/icons/blind_icon_black.png" alt="Blind">
               </button>
               <button onclick="enterFullscreenMode()" id="fullscreen_btn" class="controls__btn">
@@ -134,6 +134,11 @@
             <span class="footer__credits">created by Simon Heistermann &copy;</span>
           </div>  
       </div>
-  </footer>
+    </footer>
+    <div id="rotate__device__hint" class="rotate__hint">
+      <img src="./assets/icons/rotate_screen_icon_big_white.png" alt="Rotate device icon">
+      <p class="rotate__text">Bitte drehe dein Gerät ins Querformat</p>
+    </div>
+    
 </body>
 </html>

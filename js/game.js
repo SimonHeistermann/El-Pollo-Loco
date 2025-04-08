@@ -75,6 +75,8 @@ function updateKeyState(code, isKeyDown) {
  */
 function startGame(type) {
     enableSnoreSound();
+    applyLandscapeLockStyles();
+    addMobileControls();
     addStylingToButton(type);
     world.removeStartScreen();
     initLevel1();
