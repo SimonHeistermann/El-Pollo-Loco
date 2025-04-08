@@ -247,6 +247,11 @@
     .toggle__controls {
         display: none;
     }
+
+    .start__button {
+        padding: 12px 24px;
+        font-size: 20px;
+    }
 }
 
 @media only screen and (max-width: 854px) {
@@ -263,6 +268,20 @@
     }
 }
 
+@media only screen and (max-width: 740px) {
+    .header__container {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .header__container {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
 @media only screen and (max-height: 480px) {
     canvas {
         height: 100vh;
@@ -274,13 +293,6 @@
 
     .controls__container__smartphone.show__controls {
         display: flex !important;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .header__container {
-        flex-direction: column;
-        gap: 16px;
     }
 }
 

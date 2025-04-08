@@ -1,0 +1,94 @@
+.how_to_play__container {
+    display: flex;
+    gap: 64px;
+    width: 100%;
+    justify-content: space-between;
+    min-height: 160px;
+}
+  
+.how_to_play__toggle_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background-color: #FFD700;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    height: 40px;
+    width: 152px;
+}
+
+.how_to_play__toggle_btn img {
+    height: 24px;
+    width: 24px;
+    transform: rotate(-90deg);
+}
+  
+.how_to_play__toggle_btn:hover {
+    background-color: white;
+}
+  
+.how_to_play__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #FFD700;
+    padding: 0;
+    width: 0;
+    height: 0;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: width 0.3s ease, padding 0.3s ease, height 0.3s ease;
+    overflow: hidden;
+}
+
+.how_to_play__content_display {
+    width: auto;
+    height: auto;
+    padding: 16px; 
+}
+
+.how_to_play__container_box {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+}
+  
+.how_to_play__title {
+    font-size: 20px;
+}
+  
+.how_to_play__list {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    overflow: hidden;
+}
+
+.how_to_play__list_2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+}
+  
+.how_to_play__list div , .how_to_play__list_2 div {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 740px) {
+    .how_to_play__container {
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+}
+  

@@ -280,6 +280,17 @@ function toggleControls(show) {
     btnShowControls.classList.toggle('d__none', show);
 }
 
+/**
+ * Toggles the visibility of the "How to Play" section.
+ * When clicked, the button shows or hides the controls instructions.
+ * 
+ * @returns {void}
+ */
+function toggleHowToPlay() {
+    const howToPlayContent = document.getElementById('how_to_play_content');
+    howToPlayContent.classList.toggle('how_to_play__content_display');
+}
+
 
 
 

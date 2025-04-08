@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
     <link rel="stylesheet" href="./style.css"/>
+    <link rel="stylesheet" href="./styles/how_to_play.css"/>
     <link rel="stylesheet" href="./styles/standard.css"/>
     <link rel="stylesheet" href="./styles/assets.css"/>
     <link rel="stylesheet" href="./styles/footer.css"/>
@@ -121,6 +122,31 @@
             <button id="id_throw_throw_desktop" class="controls__btn">
                 <img src="./assets/icons/throw_icon_black.png" alt="🎯">
             </button>
+        </div>
+      </div>
+      <div class="how_to_play__container">
+        <button class="how_to_play__toggle_btn" onclick="toggleHowToPlay()">
+          How to Play
+          <img src="./assets/icons/dropdown_icon_black.png" alt=">">
+        </button>
+        <div id="how_to_play_content" class="how_to_play__content">
+          <div class="how_to_play__container_box">
+            <h3 class="how_to_play__title">Controls:</h3>
+            <div class="how_to_play__list">
+              <div><strong>Left Arrow:</strong> Move Left</div>
+              <div><strong>Right Arrow:</strong> Move Right</div>
+              <div><strong>Up Arrow:</strong> Jump</div>
+              <div><strong>Throw Button:</strong> Throw</div>
+            </div>
+          </div>
+          <div class="how_to_play__container_box">
+            <h3 class="how_to_play__title">Note:</h3>
+            <div class="how_to_play__list_2">
+              <div>Kill enemies by jumping on them or throwing a bottle at them</div>
+              <div>Kill the Endboss by throwing multiple bottles at it</div>
+              <div>Get full health by collecting enough coins</div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
