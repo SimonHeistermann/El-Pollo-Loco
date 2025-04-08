@@ -34,7 +34,8 @@ const sounds = {
     collectSound: new Audio('./assets/sounds/collect_sound.mp3'),
     jumpAttackSound: new Audio('./assets/sounds/jump_attack_sound.mp3'),
     endbossHurtSound: new Audio('./assets/sounds/endboss_hurt_sound.mp3'),
-    throwingSound: new Audio('./assets/sounds/throwing_sound.mp3')
+    throwingSound: new Audio('./assets/sounds/throwing_sound.mp3'),
+    snoreSound: new Audio('./assets/sounds/snore_sound.mp3')
 };
 let isMuted = localStorage.getItem('muted') === 'true';
 
@@ -73,9 +74,11 @@ function updateKeyState(code, isKeyDown) {
  * Starts the game by applying styles to the start button, removing the start screen, and initializing the first level.
  */
 function startGame(type) {
+    enableSnoreSound();
     addStylingToButton(type);
     world.removeStartScreen();
     initLevel1();
+    world.character.animate();
 }
 
 /**
@@ -129,8 +132,10 @@ function restartGame(type) {
     world.removeEndScreen();
     world = null;
     init();
+    enableSnoreSound();
     world.removeStartScreen();
     initLevel1();
+    world.character.animate();
 }
 
 /**

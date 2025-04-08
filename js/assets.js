@@ -182,3 +182,22 @@ function changeSoundButtonStyling(mute) {
     playSoundBtn.classList.toggle('d__none', !mute); 
     muteSoundBtn.classList.toggle('d__none', mute);
 }
+
+/**
+ * Enables the snore sound by attempting to play it once after a user interaction.
+ * This is required to comply with browser autoplay policies, which block sound
+ * playback unless triggered by a user gesture.
+ *
+ * The sound is immediately paused and reset after playing to ensure it can be
+ * played later without restrictions.
+ */
+function enableSnoreSound() {
+    world.character.snoreSound.play()
+        .then(() => {
+            world.character.snoreSound.pause();
+            world.character.snoreSound.currentTime = 0;
+        })
+        .catch(e => console.log('Autoplay blocked:', e));
+}
+
+

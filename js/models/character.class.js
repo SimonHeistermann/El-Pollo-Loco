@@ -77,6 +77,7 @@ class Character extends MovableObject {
     hurtSound = sounds.hurtSound;
     collectSound = sounds.collectSound;
     jumpAttackSound = sounds.jumpAttackSound;
+    snoreSound = sounds.snoreSound;
 
     /**
      * Creates an instance of the Character.
@@ -90,8 +91,9 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.snoreSound.volume = 0.2;
+        this.snoreSound.loop = true;
         this.world = world;
-        this.animate();
         this.applyGravity(this.groundLevel);
     }
 
@@ -154,19 +156,45 @@ class Character extends MovableObject {
     }
 
     /**
-     * Handles the idle timer for the character. If the character is idle for a certain period, it switches to a long idle animation.
-     * @param {Array} newAnimation - The current animation to check.
-     * @param {number|null} idleTimer - The current idle timer.
-     * @returns {number|null} The updated idle timer.
-     */
+    * Manages idle behavior. Starts long idle animation and snore sound after inactivity.
+    * @param {Array} newAnimation - Current animation sequence.
+    * @param {number|null} idleTimer - Existing idle timer reference.
+    * @returns {number|null} - Updated idle timer reference.
+    */
     handleIdleTimer(newAnimation, idleTimer) {
-        if (newAnimation !== this.IMAGES_IDLE) {
-            clearTimeout(idleTimer);
+        const isIdle = newAnimation === this.IMAGES_IDLE;
+        if (!isIdle) {
+            this.resetSnore(idleTimer);
             return null;
         }
         if (!idleTimer) {
-            idleTimer = setTimeout(() => this.playAnimationWithSpeed(this.IMAGES_LONG_IDLE, 300), 12500);
+            idleTimer = setTimeout(() => {
+                this.playAnimationWithSpeed(this.IMAGES_LONG_IDLE, 300);
+                this.playSnore();
+            }, 12500);
         }
         return idleTimer;
+    }
+
+    /**
+    * Stops the idle timer and resets the snore sound if playing.
+    * @param {number} timer - Reference to the idle timeout to clear.
+     */
+    resetSnore(timer) {
+        clearTimeout(timer);
+        if (this.snoreSound) {
+            this.snoreSound.pause();
+            this.snoreSound.currentTime = 0;
+        }
+    }
+
+    /**
+     * Plays the snore sound from the beginning.
+     */
+    playSnore() {
+        if (this.snoreSound) {
+            this.snoreSound.currentTime = 0;
+            this.snoreSound.play();
+        }
     }
 }
