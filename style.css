@@ -70,7 +70,7 @@
     justify-content: space-between;
     gap: 64px;
     align-items: center;
-    width: 100%;
+    width: min(100%, 854px);
 }
 
 .controls__right , .controls__left {
@@ -207,6 +207,18 @@
 .controls__container__smartphone {
     display: none !important;
 }
+
+.locked__landscape {
+    overflow: hidden !important;
+}
+
+.main__locked__container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: 100% !important;
+}
   
 @media only screen and (max-width: 992px) and (orientation: portrait) {
     .rotate__hint {
@@ -219,10 +231,6 @@
 }
 
 @media only screen and (max-width: 992px) and (orientation: landscape) {
-    main {
-        margin-top: 120px !important;
-    }
-
     .locked__landscape {
         height: 100% !important;
         overflow: hidden !important;
@@ -238,6 +246,7 @@
         align-items: center !important;
         width: 100% !important;
         height: 100% !important;
+        margin-top: 370px;
     }
 
     .hud {

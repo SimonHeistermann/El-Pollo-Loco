@@ -302,12 +302,27 @@ function toggleHowToPlay() {
     howToPlayContent.classList.toggle('how_to_play__content_display');
 }
 
+/**
+ * Sets the frame rate and updates the displayed value.
+ * This function also stores the frame rate in localStorage to persist it across sessions.
+ * 
+ * @param {number} value - The frame rate to be set, in frames per second (FPS).
+ * @returns {void}
+ */
 function setFrameRate(value) {
     const frameRateDisplay = document.getElementById('frame_rate__display');
     frameRateDisplay.textContent = `${value} FPS`;
     localStorage.setItem('frameRate', value);
 }
 
+/**
+ * Loads the frame rate from localStorage and applies it.
+ * If the frame rate is found in localStorage, it updates the input field and the display.
+ * It also updates the `currentHz` and `speedFactor` based on the stored frame rate.
+ * 
+ * @param {string} type - The type of loading context (e.g., 'settings') to handle the frame rate accordingly.
+ * @returns {void}
+ */
 function loadFrameRate(type) {
     const storedFrameRate = localStorage.getItem('frameRate');
     if (storedFrameRate) {
@@ -322,7 +337,14 @@ function loadFrameRate(type) {
     localStorage.setItem('frameRate', currentHz);
 }
 
+/**
+ * Initializes the settings by loading the stored frame rate.
+ * This function is called when the settings page or initialization is triggered.
+ * 
+ * @returns {void}
+ */
 function initSettings() {
     loadFrameRate('settings');
 }
+
 

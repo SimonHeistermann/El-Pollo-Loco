@@ -42,7 +42,7 @@ main {
     padding-inline: clamp(16px, 6vw, 64px);
     position: relative;
     margin-top: 60px;
-    margin-bottom: 90px;
+    margin-bottom: 60px;
 }
 
 button {

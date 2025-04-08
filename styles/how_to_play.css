@@ -4,6 +4,10 @@
     width: 100%;
     justify-content: space-between;
     min-height: 160px;
+    margin-inline: auto;
+    width: min(100%, 1920px);
+    padding-inline: clamp(16px, 6vw, 64px);
+    margin-bottom: 120px;
 }
   
 .how_to_play__toggle_btn {
