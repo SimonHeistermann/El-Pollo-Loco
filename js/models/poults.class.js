@@ -1,3 +1,7 @@
+/**
+ * Represents a Poults enemy character in the game.
+ * Inherits from the MovableObject class and handles the animation and movement of the Poults.
+ */
 class Poults extends MovableObject {
     height = 81.3;
     width = 82.67;
@@ -15,6 +19,9 @@ class Poults extends MovableObject {
     animationInterval = null;
     offset = { top: 10, left: 10, right: 10, bottom: 10 };
 
+    /**
+     * Creates a new Poults enemy object and initializes its position, image, and animation.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.x = 200 + Math.random() * 500;
@@ -22,6 +29,10 @@ class Poults extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Starts the animation and movement of the Poults.
+     * Moves the Poults to the left and plays the walking animation.
+     */
     animate() {
         this.moveLeft(this.poultSpeed);
         this.animationInterval = setInterval(() => { 

@@ -21,13 +21,31 @@ const keyMap = {
 let colorSetting = 'BLUE';
 let difficulty = 'EASY';
 let endBossReady = false;
+let intervalIDs = [];
+const sounds = {
+    backgroundMusic: new Audio('./assets/sounds/background_rumba.mp3'),
+    backgroundMusicEndboss: new Audio('./assets/sounds/background_endboss_dramatic_sound.mp3'),
+    chickenAndPoults: new Audio('./assets/sounds/chicken_and_poults_sound.mp3'),
+    gameWon: new Audio('./assets/sounds/game_won_sound.mp3'),
+    gameLost: new Audio('./assets/sounds/game_lost_sound.mp3'),
+    bottleBreaks: new Audio('./assets/sounds/bottle_breaks_sound.mp3'),
+    jumpSound: new Audio('./assets/sounds/jump_sound.mp3'),
+    hurtSound: new Audio('./assets/sounds/hurt_sound.mp3'),
+    collectSound: new Audio('./assets/sounds/collect_sound.mp3'),
+    jumpAttackSound: new Audio('./assets/sounds/jump_attack_sound.mp3'),
+    endbossHurtSound: new Audio('./assets/sounds/endboss_hurt_sound.mp3'),
+    throwingSound: new Audio('./assets/sounds/throwing_sound.mp3')
+};
+let isMuted = localStorage.getItem('muted') === 'true';
 
 
 /**
- * Initializes the game by setting up the canvas and the world.
+ * Initializes the game by setting up the canvas, applying the current mute state, 
+ * and creating a new game world instance.
  */
 function init() {
     canvas = getCanvas();
+    setMuteState(isMuted);
     world = new World(canvas, keyboard);
 }
 
@@ -54,8 +72,8 @@ function updateKeyState(code, isKeyDown) {
 /**
  * Starts the game by applying styles to the start button, removing the start screen, and initializing the first level.
  */
-function startGame() {
-    addStylingToStartButton();
+function startGame(type) {
+    addStylingToButton(type);
     world.removeStartScreen();
     initLevel1();
 }
@@ -84,9 +102,9 @@ function returnDamage(obj) {
  * @returns {number} - The percentage chance (60 for Easy, 40 for Medium, 20 for Hard).
  */
 function returnBottleAndCoinPercentage() {
-    if (difficulty === 'EASY') return 60;
-    if (difficulty === 'MEDIUM') return 40;
-    if (difficulty === 'HARD') return 20;
+    if (difficulty === 'EASY') return 70;
+    if (difficulty === 'MEDIUM') return 60;
+    if (difficulty === 'HARD') return 50;
 }
 
 /**
@@ -99,3 +117,41 @@ function returnHealthPercentage() {
     if (difficulty === 'MEDIUM') return 80;
     if (difficulty === 'HARD') return 40;
 }
+
+/**
+ * Restarts the game by resetting necessary variables, removing screens, and reinitializing the game world.
+ * @param {string} type - The type of action that triggered the restart (e.g., "restart").
+ */
+function restartGame(type) {
+    endBossReady = false;
+    intervalIDs = [];
+    addStylingToButton(type);
+    world.removeEndScreen();
+    world = null;
+    init();
+    world.removeStartScreen();
+    initLevel1();
+}
+
+/**
+ * Toggles the mute state for all sounds.
+ * @param {boolean} mute - If true, mutes all sounds; otherwise, unmutes them.
+ */
+function toggleMute(mute) {
+    setMuteState(mute);
+}
+
+/**
+ * Sets the mute state for all sounds and updates the sound button styling.
+ * Also saves the mute state to localStorage.
+ * @param {boolean} mute - If true, mutes all sounds; otherwise, unmutes them.
+ */
+function setMuteState(mute) {
+    isMuted = mute;
+    for (const sound in sounds) {
+        sounds[sound].muted = mute;
+    }
+    changeSoundButtonStyling(mute);
+    localStorage.setItem('muted', mute.toString());
+}
+

@@ -1,3 +1,8 @@
+/**
+ * Represents the lost screen in the game.
+ * Displays different images when the game ends and the player loses.
+ * Inherits from the DrawableObject class and loads a random image from the 'game over' screen collection.
+ */
 class LostScreen extends DrawableObject {
     height = 480;
     width = 854;
@@ -14,8 +19,11 @@ class LostScreen extends DrawableObject {
         './assets/img/You won, you lost/You lost.png'
     ];
 
+    /**
+     * Constructor for the LostScreen class.
+     * Loads a random image from the IMAGES_LOSTSCREEN array to be displayed.
+     */
     constructor() {
         super().loadImage(this.getRandomImage(this.IMAGES_LOSTSCREEN));
     }
-
 }

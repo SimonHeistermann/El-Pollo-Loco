@@ -37,6 +37,7 @@
     <script src="./js/models/startscreen.class.js"></script>
     <script src="./js/models/lost_screen.class.js"></script>
     <script src="./js/models/won_screen.class.js"></script>
+    <script src="./js/models/background_screen.class.js"></script>
     <script src="./js/models/level.class.js"></script>
     <script src="./js/game.js"></script>
     <script src="./js/levels/level1.js"></script>
@@ -59,14 +60,14 @@
         </nav>
     </header>
     <main class="main__container">
-      <div class="game__container">
+      <div class="game__container" id="game_container">
           <canvas id="canvas" class="game__canvas" width="854" height="480"></canvas>
           <div class="hud">
             <div class="change__sound__box">
-              <button id="play_sound_btn" class="controls__btn">
+              <button id="play_sound_btn" class="controls__btn d__none" onclick="toggleMute(false)">
                 <img src="./assets/icons/sound_mute_icon_black.png" alt="Mute">
               </button>
-              <button id="mute_sound_btn" class="controls__btn d__none">
+              <button id="mute_sound_btn" class="controls__btn" onclick="toggleMute(true)">
                 <img src="./assets/icons/sound_icon_black.png" alt="Sound">
               </button>
               <button id="do_not_see_mobile_controls_btn" class="controls__btn">
@@ -74,6 +75,12 @@
               </button>
               <button id="see_mobile_controls_btn" class="controls__btn d__none">
                 <img src="./assets/icons/blind_icon_black.png" alt="Blind">
+              </button>
+              <button onclick="enterFullscreenMode()" id="fullscreen_btn" class="controls__btn">
+                <img src="./assets/icons/fullscreen_icon_black.png" alt="Fullscreen">
+              </button>
+              <button onclick="leaveFullscreenMode()" id="normal_screen_btn" class="controls__btn d__none">
+                <img src="./assets/icons/normal_screen_icon_black.png" alt="Normal Screen">
               </button>
             </div>
             <div class="controls__container__smartphone">
@@ -95,7 +102,8 @@
               </div>
             </div>
           </div>
-          <button id="start_button" class="start__button" onclick="startGame()">Start Game</button>
+          <button id="start_button" class="start__button" onclick="startGame('start')">Start Game</button>
+          <button id="restart_button" class="start__button d__none" onclick="restartGame('restart')">Restart Game</button>
       </div>
       <div class="controls__container">
         <div class="controls__left">

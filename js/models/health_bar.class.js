@@ -30,11 +30,11 @@ class HealthBar extends StatusBars {
         this.loadImages(this.IMAGES_ORANGE);
         this.y = this.height - 15;
         this.percentage = returnHealthPercentage();
-        this.setPercentage(1000);
+        this.setPercentage(100);
     }
 
     setPercentage(percentage) {
-        if(percentage >= 0 && percentage <= 1000) {
+        if(percentage >= 0 && percentage <= 100) {
             this.percentage = percentage;
             let images = this["IMAGES_" + colorSetting];
             let index = this.resolveImageIndex();
@@ -45,7 +45,7 @@ class HealthBar extends StatusBars {
     }
 
     resolveImageIndex() {
-        return Math.floor(this.percentage / 200);
+        return Math.floor(this.percentage / 20);
     }
 
 

@@ -1,3 +1,7 @@
+/**
+ * Represents a throwable object (bottle) in the game.
+ * Inherits from the MovableObject class.
+ */
 class ThrowableObject extends MovableObject {
     IMAGE_BOTTLE = './assets/img/6_salsa_bottle/salsa_bottle.png';
     IMAGES_BOTTLE_THROWING = [
@@ -17,8 +21,15 @@ class ThrowableObject extends MovableObject {
     groundLevel = 72;
     speedX = 20;
     stoppedThrow;
+    throwInterval = null;
+    throwingSound = sounds.throwingSound;
 
-
+    /**
+     * Creates a new throwable object (bottle).
+     * @param {number} x - The x-position of the bottle.
+     * @param {number} y - The y-position of the bottle.
+     * @param {Object} world - The world the bottle belongs to (e.g., game world).
+     */
     constructor(x, y, world) {
         super().loadImage(this.IMAGE_BOTTLE);
         this.loadImages(this.IMAGES_BOTTLE_THROWING);
@@ -31,13 +42,25 @@ class ThrowableObject extends MovableObject {
         this.throw(x, y);
     }
 
+    /**
+     * Starts the throwing of the bottle, decreasing the bottle bar percentage
+     * and initiating the throwing process.
+     * @param {number} x - The x-position where the bottle is thrown.
+     * @param {number} y - The y-position where the bottle is thrown.
+     */
     throw(x, y) {
         let currentPercentage = this.world.bottleBar.percentage;
         this.world.bottleBar.setPercentage(currentPercentage - 10);
         this.startThrowing(x, y);
         this.startAnimation();
+        this.throwingSound.play();
     }
 
+    /**
+     * Starts the movement of the bottle, applying gravity and updating its position.
+     * @param {number} x - The starting x-position of the bottle.
+     * @param {number} y - The starting y-position of the bottle.
+     */
     startThrowing(x, y) {
         this.x = x;
         this.y = y;
@@ -50,6 +73,10 @@ class ThrowableObject extends MovableObject {
         }, intervalTime);
     }
 
+    /**
+     * Starts the animation of the bottle, either throwing or splashing depending
+     * on its state.
+     */
     startAnimation() {
         let lastAnimation = null;
         setInterval(() => {
@@ -69,10 +96,12 @@ class ThrowableObject extends MovableObject {
         }, 50);
     }
 
+    /**
+     * Stops the throwing process, clearing the movement and gravity intervals.
+     */
     stopThrowing() {
         clearInterval(this.throwInterval);
         clearInterval(this.gravityInterval);
         this.speedY = 0;
     }
-    
 }

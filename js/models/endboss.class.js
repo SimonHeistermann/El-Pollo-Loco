@@ -46,6 +46,7 @@ class Endboss extends MovableObject {
     }
     endBossSpeed = 1.5 + Math.random() * 0.25;
     energy = 100;
+    hurtSound = sounds.endbossHurtSound;
 
     constructor(level_end_x) {
         super().loadImage(this.IMAGES_WALK[0]);
@@ -55,14 +56,16 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.hurtSound.volume = 0.5;
         this.animate();
+        this.energy = 100;
     }
 
     animate() {
         let i = 0;
         let lastAnimation = null;
-        setInterval(() => {
-            if (!endBossReady) return;  
+        setStoppableInterval(() => {
+            if (!endBossReady) return;
             let newAnimation = this.getAnimation(i);
             let speed = 200;
             this.checkMoveLeft(newAnimation);

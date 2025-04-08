@@ -1,3 +1,7 @@
+/**
+ * Class representing a Character in the game that can walk, jump, and interact with the world.
+ * It extends the MovableObject class and manages animations, movements, and interactions.
+ */
 class Character extends MovableObject {
     height = 368;
     width = 236;
@@ -69,9 +73,17 @@ class Character extends MovableObject {
         left: 50, 
         right: 100
     }
+    jumpSound = sounds.jumpSound;
+    hurtSound = sounds.hurtSound;
+    collectSound = sounds.collectSound;
+    jumpAttackSound = sounds.jumpAttackSound;
 
+    /**
+     * Creates an instance of the Character.
+     * @param {Object} world - The game world that the character belongs to.
+     */
     constructor(world) {
-        super().loadImage( './assets/img/2_character_pepe/1_idle/idle/I-1.png');
+        super().loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_WALKING);
@@ -83,13 +95,22 @@ class Character extends MovableObject {
         this.applyGravity(this.groundLevel);
     }
 
+    /**
+     * Starts the animation and movement of the character.
+     */
     animate() {
         this.startMoving();
         this.startAnimation();
     }
-    
+
+    /**
+     * Controls the movement of the character based on keyboard input.
+     * The character can move left or right and jump.
+     * The camera follows the character's movement.
+     */
     startMoving() {
-        setInterval(() => {
+        setStoppableInterval(() => {
+            if (this.isDead()) return;
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.movingRight();
             }
@@ -102,11 +123,15 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 100;
         }, 1000 / currentHz);
     }
-    
+
+    /**
+     * Starts the animation based on the character's current state (walking, idle, jumping, hurt, dead).
+     * The animation speed is adjusted based on the state.
+     */
     startAnimation() {
         let lastAnimation = null;
         let idleTimer = null;
-        setInterval(() => {
+        setStoppableInterval(() => {
             let { newAnimation, speed } = this.getCurrentAnimation();
             idleTimer = this.handleIdleTimer(newAnimation, idleTimer);
             if (newAnimation !== lastAnimation) {
@@ -115,7 +140,11 @@ class Character extends MovableObject {
             }
         }, 25);
     }
-    
+
+    /**
+     * Determines the current animation based on the character's state.
+     * @returns {Object} An object containing the current animation and the animation speed.
+     */
     getCurrentAnimation() {
         if (this.isDead()) return { newAnimation: this.IMAGES_DEAD, speed: 200 };
         if (this.isHurt()) return { newAnimation: this.IMAGES_HURT, speed: 200 };
@@ -123,7 +152,13 @@ class Character extends MovableObject {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) return { newAnimation: this.IMAGES_WALKING, speed: 50 };
         return { newAnimation: this.IMAGES_IDLE, speed: 2000 };
     }
-    
+
+    /**
+     * Handles the idle timer for the character. If the character is idle for a certain period, it switches to a long idle animation.
+     * @param {Array} newAnimation - The current animation to check.
+     * @param {number|null} idleTimer - The current idle timer.
+     * @returns {number|null} The updated idle timer.
+     */
     handleIdleTimer(newAnimation, idleTimer) {
         if (newAnimation !== this.IMAGES_IDLE) {
             clearTimeout(idleTimer);
@@ -134,5 +169,4 @@ class Character extends MovableObject {
         }
         return idleTimer;
     }
-    
 }
