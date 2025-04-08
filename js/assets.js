@@ -248,13 +248,30 @@ function addMobileControls() {
 }
 
 /**
- * Toggles the visibility of the desktop controls on the page.
- * It shows or hides the desktop controls based on the passed `show` parameter and updates the buttons for toggling visibility.
+ * Hides the mobile-specific controls on the page if the device supports touch events.
+ * This function removes the visibility of mobile controls by removing the 'show__controls' class.
  * 
- * @param {boolean} show - If true, the desktop controls are displayed; if false, they are hidden.
+ * @returns {void}
+ */
+function hideMobileControls() {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) {
+        document.querySelector('.controls__container__smartphone')?.classList.remove('show__controls');
+    }
+}
+
+/**
+ * Toggles the visibility of the desktop controls on the page.
+ * This function only runs if the game has already started (`gameStarted` is true).
+ * It shows or hides the desktop controls based on the `show` parameter and
+ * updates the visibility of the "show" and "hide" control toggle buttons accordingly.
+ *
+ * @param {boolean} show - If true, desktop controls are shown and the "hide" button is visible.
+ *                         If false, desktop controls are hidden and the "show" button is visible.
  * @returns {void}
  */
 function toggleControls(show) {
+    if (!gameStarted) return;
     const desktopControls = document.querySelector('.controls__container');
     const btnHideControls = document.getElementById('do_not_see_mobile_controls_btn');
     const btnShowControls = document.getElementById('see_mobile_controls_btn');
@@ -262,6 +279,7 @@ function toggleControls(show) {
     btnHideControls.classList.toggle('d__none', !show);
     btnShowControls.classList.toggle('d__none', show);
 }
+
 
 
 

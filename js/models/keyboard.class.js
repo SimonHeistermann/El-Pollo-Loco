@@ -38,12 +38,6 @@ class Keyboard {
         this.SPACE = false;
 
         /**
-         * Represents the state of the SHIFT key (e.g., for running).
-         * @type {boolean}
-         */
-        this.SHIFT = false;
-
-        /**
          * Represents the state of the THROW action key.
          * @type {boolean}
          */

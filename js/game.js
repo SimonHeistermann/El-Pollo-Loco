@@ -14,8 +14,6 @@ const keyMap = {
     "ArrowLeft": "LEFT",
     "ArrowRight": "RIGHT",
     "Space": "SPACE",
-    "ShiftLeft": "SHIFT",
-    "ShiftRight": "SHIFT",
     "KeyE": "THROW"
 };
 let colorSetting = 'BLUE';
@@ -38,6 +36,7 @@ const sounds = {
     snoreSound: new Audio('./assets/sounds/snore_sound.mp3')
 };
 let isMuted = localStorage.getItem('muted') === 'true';
+let gameStarted = false;
 
 
 /**
@@ -71,16 +70,117 @@ function updateKeyState(code, isKeyDown) {
 }
 
 /**
+ * Handles touch events for mobile controls (touchstart and touchend).
+ * 
+ * @param {Event} event - The event triggered by the touch.
+ * @param {boolean} isTouchStart - True for touchstart, false for touchend.
+ */
+function handleControlTouch(event, isTouchStart) {
+    const button = event.currentTarget;
+    if (button) {
+        const control = getControlFromButton(button);
+        if (control) {
+            keyboard[control] = isTouchStart;
+        }
+    }
+}
+
+/**
+ * Maps the button clicked or touched to the corresponding control action.
+ * 
+ * This function maps the button's ID to its associated action, like "LEFT", "RIGHT", "UP", or "THROW".
+ * The ID of the button must follow a specific pattern: `id_<action>_<device_type>`, e.g., `id_move_left_desktop`.
+ * 
+ * @param {HTMLElement} button - The button element that was clicked or touched.
+ * @returns {string|null} - The control action (e.g., "LEFT", "RIGHT", "UP", "THROW"), or null if not recognized.
+ */
+function getControlFromButton(button) {
+    const actionMap = {
+        "left": "LEFT",
+        "right": "RIGHT",
+        "up": "UP",
+        "throw": "THROW"
+    };
+    const action = button.id.split('_')[2]; 
+    return actionMap[action] || null;
+}
+
+/**
+ * Initializes the event listeners for the desktop control buttons.
+ * 
+ * This function sets up `mousedown`, `mouseup`, and `mouseleave` event listeners on each desktop control button. 
+ * The `mousedown` event simulates a button press, while `mouseup` and `mouseleave` events simulate releasing the button.
+ * The appropriate control action is then triggered based on the button clicked or touched.
+ * 
+ * @returns {void}
+ */
+function initDesktopControls() {
+    document.querySelectorAll('.controls__container .controls__btn').forEach((button) => {
+        button.addEventListener('mousedown', (event) => {
+            handleControlTouch(event, true);
+        });
+        button.addEventListener('mouseup', (event) => {
+            handleControlTouch(event, false);
+        });
+        button.addEventListener('mouseleave', (event) => {
+            handleControlTouch(event, false);
+        });
+    });
+}
+
+/**
+ * Adds event listeners for mobile control buttons (touchstart, touchend).
+ * The event listeners handle touch interactions on the control buttons for mobile devices.
+ * 
+ * @returns {void}
+ */
+function initMobileControls() {
+    document.querySelectorAll('.controls__container__smartphone .controls__btn').forEach((button) => {
+        button.addEventListener('touchstart', (event) => {
+            handleControlTouch(event, true);
+        }, { passive: true });
+
+        button.addEventListener('touchend', (event) => {
+            handleControlTouch(event, false);
+        }, { passive: true });
+    });
+}
+
+/**
+ * Initializes the control button listeners once the DOM is fully loaded.
+ *
+ * @returns {void}
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    initDesktopControls();
+    initMobileControls();
+});
+
+/**
  * Starts the game by applying styles to the start button, removing the start screen, and initializing the first level.
  */
 function startGame(type) {
+    addingEssentialsToStartGame(type);
     enableSnoreSound();
-    applyLandscapeLockStyles();
-    addMobileControls();
-    addStylingToButton(type);
     world.removeStartScreen();
     initLevel1();
     world.character.animate();
+}
+
+/**
+ * Initializes essential setup required to start the game.
+ * 
+ * Sets the game state to started, applies landscape styling adjustments,
+ * styles the button that triggered the game start, and adds mobile control elements to the UI.
+ *
+ * @param {string} type - The type or ID of the button used to start the game (used for styling).
+ * @returns {void}
+ */
+function addingEssentialsToStartGame(type) {
+    gameStarted = true;
+    applyLandscapeLockStyles();
+    addStylingToButton(type);
+    addMobileControls();
 }
 
 /**
@@ -130,7 +230,7 @@ function returnHealthPercentage() {
 function restartGame(type) {
     endBossReady = false;
     intervalIDs = [];
-    addStylingToButton(type);
+    addingEssentialsToStartGame(type);
     world.removeEndScreen();
     world = null;
     init();
