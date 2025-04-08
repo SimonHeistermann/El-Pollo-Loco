@@ -29,24 +29,24 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Applies gravity to the object, making it fall towards the ground.
-     * @param {number} groundLevel - The y-coordinate that represents the ground level.
-     */
+    * Applies gravity to the object, making it fall towards the ground.
+    * @param {number} groundLevel - The y-coordinate that represents the ground level.
+    */
     applyGravity(groundLevel) {
         this.groundLevel = groundLevel;
-        const gravityIntervalTime = 1000 / currentHz;
-        const adjustedAccelerationY = this.accelerationY * speedFactor;
+        const gravityIntervalTime = 1000 / 120;
+        const adjustedAccelerationY = this.accelerationY * (120 / 60);
         this.gravityInterval = setInterval(() => {
             this.lastY = this.y;
             if (this.isAboveGroundLevel() || this.speedY > 0) {
-                this.speedY -= adjustedAccelerationY;
-                this.y -= this.speedY;
+                this.speedY -= adjustedAccelerationY; 
+                this.y -= this.speedY; 
             } else {
-                this.y = groundLevel;
-                this.speedY = 0;
+                this.y = groundLevel; 
+                this.speedY = 0; 
             }
-        }, gravityIntervalTime);
-    }
+        }, gravityIntervalTime); 
+    }   
 
     /**
      * Checks if the object is above the ground level.

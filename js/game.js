@@ -1,9 +1,6 @@
 let canvas;
 let world;
 const keyboard = new Keyboard();;
-let currentHz = 120;
-const baseHz = 60;
-const speedFactor = currentHz / baseHz;
 const keyMap = {
     "KeyW": "UP",
     "KeyA": "LEFT",
@@ -44,6 +41,7 @@ let gameStarted = false;
  * and creating a new game world instance.
  */
 function init() {
+    // loadFrameRate();
     canvas = getCanvas();
     setMuteState(isMuted);
     world = new World(canvas, keyboard);

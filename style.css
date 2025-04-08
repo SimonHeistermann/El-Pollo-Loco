@@ -268,13 +268,6 @@
     }
 }
 
-@media only screen and (max-width: 740px) {
-    .header__container {
-        flex-direction: column;
-        gap: 16px;
-    }
-}
-
 @media only screen and (max-width: 600px) {
     .header__container {
         flex-direction: column;

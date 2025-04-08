@@ -1,3 +1,7 @@
+let currentHz = 120;
+const baseHz = 60;
+let speedFactor = currentHz / baseHz;
+
 /**
  * Retrieves the canvas element from the DOM.
  * 
@@ -20,6 +24,13 @@ function reloadWebsite() {
  */
 function openHome() {
     window.location.href = 'index.html';
+}
+
+/**
+ * Redirects the user to the settings page (settings.html).
+ */
+function openSettings() {
+    window.location.href = 'settings.html';
 }
 
 /**
@@ -291,6 +302,27 @@ function toggleHowToPlay() {
     howToPlayContent.classList.toggle('how_to_play__content_display');
 }
 
+function setFrameRate(value) {
+    const frameRateDisplay = document.getElementById('frame_rate__display');
+    frameRateDisplay.textContent = `${value} FPS`;
+    localStorage.setItem('frameRate', value);
+}
 
+function loadFrameRate(type) {
+    const storedFrameRate = localStorage.getItem('frameRate');
+    if (storedFrameRate) {
+        if (type == 'settings') {
+            const frameRateInput = document.getElementById('frame_rate__input');
+            frameRateInput.value = storedFrameRate; 
+            setFrameRate(storedFrameRate); 
+        }
+        currentHz = storedFrameRate;
+        speedFactor = currentHz / baseHz;
+    }
+    localStorage.setItem('frameRate', currentHz);
+}
 
+function initSettings() {
+    loadFrameRate('settings');
+}
 

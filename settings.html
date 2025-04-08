@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+
+    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.jpg" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.jpg" media="(prefers-color-scheme: dark)">
+
+    <link rel="stylesheet" href="./assets/fonts/fonts.css"/>
+    <link rel="stylesheet" href="./style.css"/>
+    <link rel="stylesheet" href="./styles/standard.css"/>
+    <link rel="stylesheet" href="./styles/assets.css"/>
+    <link rel="stylesheet" href="./styles/footer.css"/>
+    <link rel="stylesheet" href="./styles/legal_notice.css"/>
+    <link rel="stylesheet" href="./styles/settings.css"/>
+
+    <script src="./js/assets.js"></script>
+</head>
+<body onload="initSettings()">
+    <header class="header__container">
+        <h1 class="header__title">El Pollo Loco</h1>
+        <nav class="header__nav">
+            <button onclick="openHome()" class="header__btn">
+              <img class="home_icon" src="./assets/icons/home_icon_black.png" alt="🏠">
+              <img class="home_icon_gif" src="./assets/icons/home_icon_black.gif" alt="🏠">
+              Home
+            </button>
+            <button class="header__btn">
+              <img class="settings_icon" src="./assets/icons/settings_icon_black.png" alt="⚙️">
+              <img class="settings_icon_gif" src="./assets/icons/settings_icon_black.gif" alt="⚙️">
+              Settings
+            </button>
+        </nav>
+    </header>
+    <main class="main__container">
+        <div class="legal__notice">
+            <h2 class="legal__notice__title">Settings</h2>
+            <div class="frame_rate__container">
+                <label for="frame_rate__input" class="frame_rate__label">Framerate:</label>
+                <input 
+                  id="frame_rate__input" 
+                  type="range" 
+                  class="frame_rate__input" 
+                  min="30" 
+                  max="360" 
+                  value="120"
+                  oninput="setFrameRate(this.value)"
+                />
+                <span id="frame_rate__display" class="frame_rate__display">120 FPS</span>
+            </div> 
+        </div>
+    </main>
+    <footer>
+        <div class="footer__container">
+            <div class="footer__containerbottom">
+              <div class="footer__containerbottom__box">
+                <a class="footer__linksextra" href="./legal_notice.html" rel="noopener noreferrer">Impressum</a>
+                <a class="footer__linksextra" href="https://icons8.com/" target="_blank" rel="noopener noreferrer">Icons by icons8.com</a>
+              </div>
+              <span class="footer__credits">created by Simon Heistermann &copy;</span>
+            </div>  
+        </div>
+    </footer>
+</body>
+</html>
