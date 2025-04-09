@@ -235,7 +235,7 @@ class MovableObject extends DrawableObject {
             this.world.bottleBar.setPercentage(currentPercentage + 10);
         } else if (collectable instanceof CollectableCoin) {
             let currentPercentage = this.world.coinBar.percentage;
-            this.world.coinBar.setPercentage(currentPercentage + 2);
+            this.world.coinBar.setPercentage(currentPercentage + 5);
         }
         this.collectSound.play();
     }
