@@ -7,7 +7,7 @@
     margin-inline: auto;
     width: min(100%, 1920px);
     padding-inline: clamp(16px, 6vw, 64px);
-    margin-bottom: 120px;
+    margin-bottom: 60px;
     position: relative;
 }
   

@@ -68,10 +68,10 @@ class Character extends MovableObject {
     world;
     characterSpeed = 10;
     offset = {
-        top: 120,
-        bottom: 30,
-        left: 50, 
-        right: 100
+        top: 145,
+        bottom: 20,
+        left: 45, 
+        right: 65
     }
     jumpSound = sounds.jumpSound;
     hurtSound = sounds.hurtSound;

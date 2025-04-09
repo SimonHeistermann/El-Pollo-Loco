@@ -210,9 +210,9 @@ function returnDamage(obj) {
  * @returns {number} - The percentage chance for coins to appear.
  */
 function returnCoinPercentage() {
-    if (difficulty === 'EASY') return 40;
-    if (difficulty === 'MEDIUM') return 30;
-    if (difficulty === 'HARD') return 20;
+    if (difficulty === 'EASY') return 0;
+    if (difficulty === 'MEDIUM') return 0;
+    if (difficulty === 'HARD') return 0;
 }
 
 /**
@@ -225,9 +225,9 @@ function returnCoinPercentage() {
  * @returns {number} - The percentage chance for bottles to appear.
  */
 function returnBottlePercentage() {
-    if (difficulty === 'EASY') return 20;
-    if (difficulty === 'MEDIUM') return 10;
-    if (difficulty === 'HARD') return 5;
+    if (difficulty === 'EASY') return 0;
+    if (difficulty === 'MEDIUM') return 0;
+    if (difficulty === 'HARD') return 0;
 }
 
 /**

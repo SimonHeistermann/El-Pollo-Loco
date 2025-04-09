@@ -74,4 +74,24 @@ class DrawableObject {
     //         ctx.stroke();
     //     }
     // }
+
+    /**
+    * This method is commented out, but when enabled:
+    * Draws the object's hitbox as a blue rectangle for debugging purposes.
+    * Only applies to instances of Character, Chicken, or Poults.
+    *
+    * @param {CanvasRenderingContext2D} ctx - The canvas 2D rendering context used to draw the hitbox.
+    */
+    // drawHitbox(ctx) {
+    //     if (this instanceof Character || this instanceof Chicken || this instanceof Poults) {
+    //         ctx.strokeStyle = 'blue';
+    //         ctx.lineWidth = 2;
+    //         ctx.strokeRect(
+    //             this.x + this.offset.left,
+    //             this.y + this.offset.top,
+    //             this.width - this.offset.left - this.offset.right,
+    //             this.height - this.offset.top - this.offset.bottom
+    //         );
+    //     }
+    // }
 }

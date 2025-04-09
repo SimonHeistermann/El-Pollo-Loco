@@ -71,17 +71,36 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Checks if this object is colliding with another object.
-     * @param {Object} obj - The object to check collision with.
-     * @returns {boolean} - True if the objects are colliding, otherwise false.
-     */
+    * Checks whether this object is colliding with another object.
+    * Collision is based on the object's bounding boxes, taking offsets into account.
+    * 
+    * @param {Object} obj - The other object to check collision against. 
+    *                       Must implement getBounds().
+    * @returns {boolean} - True if the objects are colliding, false otherwise.
+    */
     isColliding(obj) {
+        const [aLeft, aRight, aTop, aBottom] = this.getBounds();
+        const [bLeft, bRight, bTop, bBottom] = obj.getBounds();
         return (
-            this.x + this.offset.left + this.width - this.offset.right >= obj.x + obj.offset.left &&
-            this.x + this.offset.left <= obj.x + obj.width - obj.offset.right &&
-            this.y + this.offset.top + this.height - this.offset.bottom >= obj.y + obj.offset.top &&
-            this.y + this.offset.top <= obj.y + obj.height - obj.offset.bottom
+            aRight >= bLeft &&
+            aLeft <= bRight &&
+            aBottom >= bTop &&
+            aTop <= bBottom
         );
+    }
+
+    /**
+     * Calculates the bounding box of the object, adjusted by its offset.
+     *
+     * @returns {number[]} - An array containing [left, right, top, bottom] bounds.
+     */
+    getBounds() {
+        return [
+            this.x + this.offset.left,
+            this.x + this.width - this.offset.right,
+            this.y + this.offset.top,
+            this.y + this.height - this.offset.bottom
+        ];
     }
 
     /**
@@ -185,7 +204,7 @@ class MovableObject extends DrawableObject {
     die() {
         clearInterval(this.animationInterval);
         this.loadImage(this.IMAGE_DEAD);
-        this.offset = { top: 60, left: 5, right: 5, bottom: 0 };
+        this.offset = { top: 140, left: 5, right: 5, bottom: 10 };
         this.speedY = 10;
         let fallInterval = setInterval(() => {
             this.y += 5;

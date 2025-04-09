@@ -96,16 +96,21 @@ class World {
     */
     checkCollisions() {
         let enemyHit = this.getJumpedOnEnemy();
-        this.level.enemies.forEach(enemy => this.handleEnemyCollision(enemy));
         if (enemyHit) this.handleEnemyDefeat(enemyHit);
+        this.level.enemies.forEach(enemy => {
+            if (enemy == enemyHit) return;
+            this.handleEnemyCollision(enemy);
+        });
     }
 
     /**
-     * Finds the first enemy the character is jumping on.
+    * Finds the first enemy the character is jumping on.
     * @returns {Object|null} The enemy that is being jumped on, or null if none.
     */
     getJumpedOnEnemy() {
-        return this.level.enemies.find(enemy => this.character.isColliding(enemy) && this.character.isJumpingOn(enemy)) || null;
+        return this.level.enemies.find(enemy => {
+            return this.character.isColliding(enemy) && this.character.isJumpingOn(enemy);
+        }) || null;
     }
 
     /**
@@ -349,6 +354,7 @@ class World {
         } 
         mo.draw(this.ctx);
         // mo.drawFrame(this.ctx);
+        // mo.drawHitbox(this.ctx);
         this.ctx.restore();
     }
 

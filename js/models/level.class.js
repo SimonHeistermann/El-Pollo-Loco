@@ -150,8 +150,8 @@ class Level {
      */
     addCollectableCoinsToSegment(edgeX) {
         if (edgeX < 400) return;
-        let spawnThree = Math.random() < 0.5;
-        let spawnTwo = Math.random() < 0.75;
+        let spawnThree = Math.random() < 0.6;
+        let spawnTwo = Math.random() < 0.85;
         let usedPatterns = new Set();
         let patternsToGenerate = spawnThree ? 3 : (spawnTwo ? 2 : 1);
         for (let i = 0; i < patternsToGenerate; i++) {

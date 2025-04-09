@@ -122,7 +122,7 @@ class Endboss extends MovableObject {
     checkForAttack(newAnimation) {
         if (newAnimation !== this.IMAGES_ATTACK) return;
         const distance = Math.abs(world.character.x - this.x);
-        const attackRange = 300; 
+        const attackRange = 400; 
         if (distance <= attackRange) {
             world.character.hit();
             world.healthBar.setPercentage(world.character.energy);
