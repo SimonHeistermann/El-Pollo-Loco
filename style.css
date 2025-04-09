@@ -267,7 +267,32 @@
     justify-content: flex-end;
     align-items: flex-start;
 }
-  
+
+.controls__btn, .controls__btn * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+html, body {
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+}
+
+.controls__btn img {
+    pointer-events: none;
+    -webkit-touch-callout: none;
+}
+
+body {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-top: env(safe-area-inset-top);
+}  
+
 @media only screen and (max-width: 992px) and (orientation: portrait) {
     .rotate__hint {
         display: flex;

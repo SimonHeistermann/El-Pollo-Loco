@@ -371,10 +371,25 @@ function removeMobileFooterAndHowToPlay() {
     if (mobileHowToPlayRef) mobileHowToPlayRef.classList.add('d__none');
 }
 
+/**
+ * Adds a CSS class 'justify__content__flex__end' to the 'hud_top_container' element
+ * to modify its styling. The class is used to align content to the end of the container
+ * using flexbox layout.
+ *
+ * @function addHudTopContainerStyling
+ * @returns {void} This function does not return any value.
+ */
 function addHudTopContainerStyling() {
     const hudTopContainerRef = document.getElementById('hud_top_container');
     if (hudTopContainerRef) hudTopContainerRef.classList.add('justify__content__flex__end');
 }
 
-
-
+/**
+ * Prevents the default context menu from appearing when right-clicking on the page.
+ * This is typically used to disable right-click functionality for specific UI elements.
+ * 
+ * @listens document#contextmenu
+ * @param {Event} e - The event object for the contextmenu event.
+ * @returns {void} This function does not return any value.
+ */
+document.addEventListener('contextmenu', e => e.preventDefault());

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" translate="no">
+<html lang="de" translate="no" user-scalable=no">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +49,13 @@
         <h1 class="header__title">El Pollo Loco</h1>
         <nav class="header__nav">
             <button class="header__btn" onclick="reloadWebsite()">
-              <img class="home_icon" src="./assets/icons/home_icon_black.png" alt="🏠">
-              <img class="home_icon_gif" src="./assets/icons/home_icon_black.gif" alt="🏠">
+              <img class="home_icon" src="./assets/icons/home_icon_black.png" alt="🏠" draggable="false">
+              <img class="home_icon_gif" src="./assets/icons/home_icon_black.gif" alt="🏠" draggable="false">
               Home
             </button>
             <button onclick="openSettings()" class="header__btn d__none">
-              <img class="settings_icon" src="./assets/icons/settings_icon_black.png" alt="⚙️">
-              <img class="settings_icon_gif" src="./assets/icons/settings_icon_black.gif" alt="⚙️">
+              <img class="settings_icon" src="./assets/icons/settings_icon_black.png" alt="⚙️" draggable="false">
+              <img class="settings_icon_gif" src="./assets/icons/settings_icon_black.gif" alt="⚙️" draggable="false">
               Settings
             </button>
         </nav>
@@ -68,7 +68,7 @@
               <div class="how_to_play__container htp_container__mobile" id="htp_container_mobile">
                 <button class="how_to_play__toggle_btn" onclick="toggleHowToPlayMobile()">
                   How to play
-                  <img src="./assets/icons/dropdown_icon_black.png" alt=">">
+                  <img src="./assets/icons/dropdown_icon_black.png" alt=">" draggable="false">
                 </button>
                 <div id="how_to_play_content_mobile" class="how_to_play__content htp_content__mobile">
                   <div class="how_to_play__container_box">
@@ -92,25 +92,25 @@
               </div>
               <div class="change__sound__box">
                 <button onclick="reloadWebsite()" class="controls__btn home__btn__hud">
-                  <img src="./assets/icons/home_icon_hud_black.png" alt="Home">
+                  <img src="./assets/icons/home_icon_hud_black.png" alt="Home" draggable="false">
                 </button>
                 <button id="play_sound_btn" class="controls__btn d__none" onclick="toggleMute(false)">
-                  <img src="./assets/icons/sound_mute_icon_black.png" alt="Mute">
+                  <img src="./assets/icons/sound_mute_icon_black.png" alt="Mute" draggable="false">
                 </button>
                 <button id="mute_sound_btn" class="controls__btn" onclick="toggleMute(true)">
-                  <img src="./assets/icons/sound_icon_black.png" alt="Sound">
+                  <img src="./assets/icons/sound_icon_black.png" alt="Sound" draggable="false">
                 </button>
                 <button id="do_not_see_mobile_controls_btn" class="controls__btn toggle__controls d__none" onclick="toggleControls(false)">
-                  <img src="./assets/icons/eye_icon_black.png" alt="See">
+                  <img src="./assets/icons/eye_icon_black.png" alt="See" draggable="false">
                 </button>
                 <button id="see_mobile_controls_btn" class="controls__btn toggle__controls" onclick="toggleControls(true)">
-                  <img src="./assets/icons/blind_icon_black.png" alt="Blind">
+                  <img src="./assets/icons/blind_icon_black.png" alt="Blind" draggable="false">
                 </button>
                 <button onclick="enterFullscreenMode()" id="fullscreen_btn" class="controls__btn">
-                  <img src="./assets/icons/fullscreen_icon_black.png" alt="Fullscreen">
+                  <img src="./assets/icons/fullscreen_icon_black.png" alt="Fullscreen" draggable="false">
                 </button>
                 <button onclick="leaveFullscreenMode()" id="normal_screen_btn" class="controls__btn d__none">
-                  <img src="./assets/icons/normal_screen_icon_black.png" alt="Normal Screen">
+                  <img src="./assets/icons/normal_screen_icon_black.png" alt="Normal Screen" draggable="false">
                 </button>
               </div>
             </div>
@@ -129,18 +129,18 @@
             <div class="controls__container__smartphone">
               <div class="controls__left">
                   <button id="id_move_left_mobile" class="controls__btn">
-                      <img src="./assets/icons/arrow_left_icon_black.png" alt="⬅️">
+                      <img src="./assets/icons/arrow_left_icon_black.png" alt="⬅️" draggable="false">
                   </button>
                   <button id="id_move_right_mobile" class="controls__btn">
-                      <img src="./assets/icons/arrow_right_icon_black.png" alt="➡️">
+                      <img src="./assets/icons/arrow_right_icon_black.png" alt="➡️" draggable="false">
                   </button>
               </div>
               <div class="controls__right">
                   <button id="id_move_up_mobile" class="controls__btn">
-                      <img src="./assets/icons/up_icon_black.png" alt="🆙">
+                      <img src="./assets/icons/up_icon_black.png" alt="🆙" draggable="false">
                   </button>
                   <button id="id_throw_throw_mobile" class="controls__btn">
-                      <img src="./assets/icons/throw_icon_black.png" alt="🎯">
+                      <img src="./assets/icons/throw_icon_black.png" alt="🎯" draggable="false">
                   </button>
               </div>
             </div>
@@ -151,18 +151,18 @@
       <div class="controls__container">
         <div class="controls__left">
             <button id="id_move_left_desktop" class="controls__btn">
-                <img src="./assets/icons/arrow_left_icon_black.png" alt="⬅️">
+                <img src="./assets/icons/arrow_left_icon_black.png" alt="⬅️" draggable="false">
             </button>
             <button id="id_move_right_desktop" class="controls__btn">
-                <img src="./assets/icons/arrow_right_icon_black.png" alt="➡️">
+                <img src="./assets/icons/arrow_right_icon_black.png" alt="➡️" draggable="false">
             </button>
         </div>
         <div class="controls__right">
             <button id="id_move_up_desktop" class="controls__btn">
-                <img src="./assets/icons/up_icon_black.png" alt="🆙">
+                <img src="./assets/icons/up_icon_black.png" alt="🆙" draggable="false">
             </button>
             <button id="id_throw_throw_desktop" class="controls__btn">
-                <img src="./assets/icons/throw_icon_black.png" alt="🎯">
+                <img src="./assets/icons/throw_icon_black.png" alt="🎯" draggable="false">
             </button>
         </div>
       </div>
@@ -170,7 +170,7 @@
     <div class="how_to_play__container htp_container_desktop">
       <button class="how_to_play__toggle_btn" onclick="toggleHowToPlay()">
         How to play
-        <img src="./assets/icons/dropdown_icon_black.png" alt=">">
+        <img src="./assets/icons/dropdown_icon_black.png" alt=">" draggable="false">
       </button>
       <div id="how_to_play_content" class="how_to_play__content">
         <div class="how_to_play__container_box">
