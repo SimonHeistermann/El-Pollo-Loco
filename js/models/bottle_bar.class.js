@@ -37,7 +37,7 @@ class BottleBar extends StatusBars {
         this.loadImages(this.IMAGES_GREEN);
         this.loadImages(this.IMAGES_ORANGE);
         this.y = 10;
-        this.percentage = returnBottleAndCoinPercentage();
+        this.percentage = returnBottlePercentage();
         this.setPercentage(this.percentage);
     }
 

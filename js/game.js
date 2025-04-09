@@ -20,7 +20,6 @@ let intervalIDs = [];
 const sounds = {
     backgroundMusic: new Audio('./assets/sounds/background_rumba.mp3'),
     backgroundMusicEndboss: new Audio('./assets/sounds/background_endboss_dramatic_sound.mp3'),
-    chickenAndPoults: new Audio('./assets/sounds/chicken_and_poults_sound.mp3'),
     gameWon: new Audio('./assets/sounds/game_won_sound.mp3'),
     gameLost: new Audio('./assets/sounds/game_lost_sound.mp3'),
     bottleBreaks: new Audio('./assets/sounds/bottle_breaks_sound.mp3'),
@@ -179,6 +178,8 @@ function addingEssentialsToStartGame(type) {
     applyLandscapeLockStyles();
     addStylingToButton(type);
     addMobileControls();
+    removeMobileFooterAndHowToPlay();
+    addHudTopContainerStyling();
 }
 
 /**
@@ -189,25 +190,44 @@ function addingEssentialsToStartGame(type) {
  */
 function returnDamage(obj) {
     if (obj instanceof Character) {
-        if (difficulty === 'EASY') return 1;
-        if (difficulty === 'MEDIUM') return 2.5;
-        if (difficulty === 'HARD') return 5;
+        if (difficulty === 'EASY') return 0.2;
+        if (difficulty === 'MEDIUM') return 0.5;
+        if (difficulty === 'HARD') return 1;
     } else if (obj instanceof Endboss) {
-        if (difficulty === 'EASY') return 3;
+        if (difficulty === 'EASY') return 0.6;
         if (difficulty === 'MEDIUM') return 2;
-        if (difficulty === 'HARD') return 1.5;
+        if (difficulty === 'HARD') return 0.3;
     }
 }
 
 /**
- * Returns the percentage chance for bottles and coins to appear based on the selected difficulty level.
+ * Returns the percentage chance for **coins** to appear based on the selected difficulty level.
  * 
- * @returns {number} - The percentage chance (60 for Easy, 40 for Medium, 20 for Hard).
+ * - EASY: 40%
+ * - MEDIUM: 30%
+ * - HARD: 20%
+ * 
+ * @returns {number} - The percentage chance for coins to appear.
  */
-function returnBottleAndCoinPercentage() {
-    if (difficulty === 'EASY') return 70;
-    if (difficulty === 'MEDIUM') return 60;
-    if (difficulty === 'HARD') return 50;
+function returnCoinPercentage() {
+    if (difficulty === 'EASY') return 40;
+    if (difficulty === 'MEDIUM') return 30;
+    if (difficulty === 'HARD') return 20;
+}
+
+/**
+ * Returns the percentage chance for **bottles** to appear based on the selected difficulty level.
+ * 
+ * - EASY: 20%
+ * - MEDIUM: 10%
+ * - HARD: 5%
+ * 
+ * @returns {number} - The percentage chance for bottles to appear.
+ */
+function returnBottlePercentage() {
+    if (difficulty === 'EASY') return 20;
+    if (difficulty === 'MEDIUM') return 10;
+    if (difficulty === 'HARD') return 5;
 }
 
 /**

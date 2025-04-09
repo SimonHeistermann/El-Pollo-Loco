@@ -57,3 +57,9 @@ footer {
         gap: 8px;
     }
 }
+
+@media (hover: none) and (pointer: coarse) and (orientation: landscape) {
+    footer {
+        display: none !important;
+    }
+}

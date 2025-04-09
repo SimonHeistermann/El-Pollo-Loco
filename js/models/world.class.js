@@ -61,9 +61,6 @@ class World {
         sounds.backgroundMusic.volume = 0.1;
         sounds.backgroundMusic.loop = true;
         playSound(sounds.backgroundMusic);
-        sounds.chickenAndPoults.volume = 0.2;
-        sounds.chickenAndPoults.loop = true;
-        playSound(sounds.chickenAndPoults);
         sounds.bottleBreaks.volume = 0.2;
         sounds.bottleBreaks.loop = false;
     }
@@ -81,7 +78,7 @@ class World {
             this.checkEndBossAnimation();
             this.checkIfGameIsLost();
             this.checkIfGameIsWon();
-        }, 50);
+        }, 10);
     }
     
     /**
@@ -501,7 +498,6 @@ class World {
      */
     stopAllMusicAndSounds() {
         sounds.backgroundMusic.pause();
-        sounds.chickenAndPoults.pause();
         sounds.backgroundMusicEndboss.pause();
     }
 

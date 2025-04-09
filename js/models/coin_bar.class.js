@@ -51,7 +51,7 @@ class CoinBar extends StatusBars {
         this.loadImages(this.IMAGES_GREEN);
         this.loadImages(this.IMAGES_ORANGE);
         this.y = (2 * this.height) - 35;
-        this.percentage = returnBottleAndCoinPercentage();
+        this.percentage = returnCoinPercentage();
         this.setPercentage(this.percentage);
     }
 

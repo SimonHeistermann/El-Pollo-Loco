@@ -5,3 +5,7 @@
 .d__flex {
     display: flex;
 }
+
+.justify__content__flex__end {
+    justify-content: flex-end;
+}

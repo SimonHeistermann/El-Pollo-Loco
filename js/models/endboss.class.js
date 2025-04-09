@@ -1,3 +1,7 @@
+/**
+ * Represents the Endboss character in the game.
+ * Handles animations, movement, and interactions such as attacking and taking damage.
+ */
 class Endboss extends MovableObject {
     height = 472;
     width = 488;
@@ -48,6 +52,11 @@ class Endboss extends MovableObject {
     energy = 100;
     hurtSound = sounds.endbossHurtSound;
 
+
+    /**
+     * Creates an instance of the Endboss and loads all assets.
+     * @param {number} level_end_x - The X position where the level ends.
+     */
     constructor(level_end_x) {
         super().loadImage(this.IMAGES_WALK[0]);
         this.x = level_end_x - this.width - 150;
@@ -61,6 +70,10 @@ class Endboss extends MovableObject {
         this.energy = 100;
     }
 
+    /**
+     * Starts the animation loop for the Endboss.
+     * Chooses the current animation based on internal state and interaction logic.
+     */
     animate() {
         let i = 0;
         let lastAnimation = null;
@@ -77,7 +90,12 @@ class Endboss extends MovableObject {
             i++;
         }, 50);
     }
-    
+
+    /**
+     * Determines which animation should currently be playing based on time and state.
+     * @param {number} i - Counter used to determine the current animation phase.
+     * @returns {string[]} Array of image paths for the current animation.
+     */
     getAnimation(i) {
         if (this.isDead()) return this.IMAGES_DEAD;
         if (this.isHurt()) return this.IMAGES_HURT;
@@ -87,21 +105,27 @@ class Endboss extends MovableObject {
         if (i > 222) return this.IMAGES_ATTACK;
         return this.IMAGES_ALERT;
     }
-    
+
+    /**
+     * Moves the Endboss left if the walk animation is active.
+     * @param {string[]} newAnimation - The current animation being played.
+     */
     checkMoveLeft(newAnimation) {
-        if(newAnimation == this.IMAGES_WALK) this.moveLeft(this.endBossSpeed);
+        if (newAnimation == this.IMAGES_WALK) this.moveLeft(this.endBossSpeed);
         else clearInterval(this.moveLeftInterval);
     }
 
+    /**
+     * Triggers an attack on the player character if within range during attack animation.
+     * @param {string[]} newAnimation - The current animation being played.
+     */
     checkForAttack(newAnimation) {
         if (newAnimation !== this.IMAGES_ATTACK) return;
         const distance = Math.abs(world.character.x - this.x);
-        const attackRange = 700; 
+        const attackRange = 300; 
         if (distance <= attackRange) {
             world.character.hit();
             world.healthBar.setPercentage(world.character.energy);
         }
     }
-    
-    
 }

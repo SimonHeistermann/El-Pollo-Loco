@@ -62,3 +62,14 @@ a {
     width: 0; 
     background: #F6F7F8; 
 }
+
+@media (hover: none) and (pointer: coarse) and (orientation: landscape) {
+    header {
+        display: none !important;
+    }
+
+    main {
+        margin-bottom: 0 !important; 
+        margin-top: 0 !important;
+    }
+}

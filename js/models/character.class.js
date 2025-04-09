@@ -116,7 +116,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.movingRight();
             }
-            if (this.world.keyboard.LEFT && this.x > 125) {
+            if (this.world.keyboard.LEFT && this.x > 200) {
                 this.movingLeft();
             }
             if ((this.world.keyboard.UP || this.world.keyboard.SPACE) && !this.isAboveGroundLevel()) {
@@ -140,7 +140,7 @@ class Character extends MovableObject {
                 lastAnimation = newAnimation;
                 this.playAnimationWithSpeed(newAnimation, speed);
             }
-        }, 25);
+        }, 50);
     }
 
     /**

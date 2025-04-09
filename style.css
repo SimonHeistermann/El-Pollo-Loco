@@ -158,7 +158,7 @@
     position: fixed;
     inset: 0px;
     background-color: #F8EDE3;
-    background-image: url('../assets/img/own_img/background_alternative_8.jpg');
+    background-image: url('./assets/img/own_img/background_alternative_8.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -219,6 +219,54 @@
     width: 100% !important;
     height: 100% !important;
 }
+
+.home__btn__hud {
+    display: none;
+}
+
+.mobile_hud__bottom {
+    display: none;
+}
+
+.mobile_hud__containerbottom {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.mobile_hud__containerbottom__box {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.mobile_hud__linksextra {
+    color: white;
+    opacity: 70%;
+    text-decoration: none;
+    font-family: 'Fredoka', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    transition: color 125ms ease-in-out;
+}
+
+.mobile_hud__linksextra:hover, .mobile_hud__linksextra:active {
+    color: #FF5733;
+}
+
+.mobile_hud__credits {
+    color: white;
+    opacity: 70%;
+    align-items: center;
+}
+
+.hud__top_container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
   
 @media only screen and (max-width: 992px) and (orientation: portrait) {
     .rotate__hint {
@@ -246,7 +294,6 @@
         align-items: center !important;
         width: 100% !important;
         height: 100% !important;
-        margin-top: 370px;
     }
 
     .hud {
@@ -305,6 +352,35 @@
 
     .controls__container__smartphone.show__controls {
         display: flex !important;
+    }
+
+    .mobile_hud__bottom {
+        display: flex;
+    }
+
+    .home__btn__hud {
+        display: flex;
+    }
+
+    .hud__top_container {
+        justify-content: space-between;
+    }
+
+    .locked__landscape__mobile {
+        height: 100% !important;
+        overflow: hidden !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 !important;
+    }
+
+    .main__locked__container__mobile {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 }
 

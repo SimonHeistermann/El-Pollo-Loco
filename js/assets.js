@@ -63,7 +63,7 @@ function removeStylingToButton(type) {
     const buttonRef = document.getElementById(type + '_button');
     buttonRef.disabled = false;
     buttonRef.style.opacity = "1";
-    buttonRef.style.cursor = "standard";
+    buttonRef.style.cursor = "pointer";
 }
 
 /**
@@ -303,6 +303,17 @@ function toggleHowToPlay() {
 }
 
 /**
+ * Toggles the visibility of the "How to Play" section on mobile devices.
+ * 
+ * Adds or removes the 'how_to_play__content_display' class to show or hide
+ * the mobile-specific instructions content.
+ */
+function toggleHowToPlayMobile() {
+    const howToPlayContent = document.getElementById('how_to_play_content_mobile');
+    howToPlayContent.classList.toggle('how_to_play__content_display');
+}
+
+/**
  * Sets the frame rate and updates the displayed value.
  * This function also stores the frame rate in localStorage to persist it across sessions.
  * 
@@ -346,5 +357,24 @@ function loadFrameRate(type) {
 function initSettings() {
     loadFrameRate('settings');
 }
+
+ /**
+ * Hides the mobile footer by adding the 'd__none' class.
+ * 
+ * This function checks if the mobile footer element exists in the DOM.
+ * If it does, it adds a class that hides it (typically using `display: none`).
+ */
+function removeMobileFooterAndHowToPlay() {
+    const mobileFooterRef = document.getElementById('mobile_footer');
+    if (mobileFooterRef) mobileFooterRef.classList.add('d__none');
+    const mobileHowToPlayRef = document.getElementById('htp_container_mobile');
+    if (mobileHowToPlayRef) mobileHowToPlayRef.classList.add('d__none');
+}
+
+function addHudTopContainerStyling() {
+    const hudTopContainerRef = document.getElementById('hud_top_container');
+    if (hudTopContainerRef) hudTopContainerRef.classList.add('justify__content__flex__end');
+}
+
 
 
