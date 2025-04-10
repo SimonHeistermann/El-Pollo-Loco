@@ -393,3 +393,26 @@ function addHudTopContainerStyling() {
  * @returns {void} This function does not return any value.
  */
 document.addEventListener('contextmenu', e => e.preventDefault());
+
+/**
+ * Adds event listeners for entering and leaving fullscreen mode.
+ * The function adds both 'click' and 'touchstart' event listeners
+ * to the fullscreen and normal screen buttons. The 'touchstart' events
+ * are marked as passive to improve performance on mobile devices.
+ *
+ * @function
+ * @name addFullscreenEventListeners
+ * @description Attaches event listeners to buttons for toggling fullscreen mode.
+ * The function adds event listeners for 'click' and 'touchstart' on the
+ * fullscreen and normal screen buttons. The 'touchstart' listeners are passive
+ * to prevent blocking the scrolling behavior.
+ */
+function addFullscreenEventListeners() {
+    const fullscreenButton = document.getElementById('fullscreen_btn');
+    fullscreenButton.addEventListener('click', enterFullscreenMode);
+    fullscreenButton.addEventListener('touchstart', enterFullscreenMode, { passive: true });
+    const normalScreenButton = document.getElementById('normal_screen_btn');
+    normalScreenButton.addEventListener('click', leaveFullscreenMode);
+    normalScreenButton.addEventListener('touchstart', leaveFullscreenMode, { passive: true });
+}
+

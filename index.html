@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="de" translate="no" user-scalable=no">
+<html lang="de" translate="no">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.jpg" media="(prefers-color-scheme: light)">
     <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.jpg" media="(prefers-color-scheme: dark)">
@@ -106,10 +108,10 @@
                 <button id="see_mobile_controls_btn" class="controls__btn toggle__controls" onclick="toggleControls(true)">
                   <img src="./assets/icons/blind_icon_black.png" alt="Blind" draggable="false">
                 </button>
-                <button onclick="enterFullscreenMode()" id="fullscreen_btn" class="controls__btn">
+                <button id="fullscreen_btn" class="controls__btn">
                   <img src="./assets/icons/fullscreen_icon_black.png" alt="Fullscreen" draggable="false">
                 </button>
-                <button onclick="leaveFullscreenMode()" id="normal_screen_btn" class="controls__btn d__none">
+                <button id="normal_screen_btn" class="controls__btn d__none">
                   <img src="./assets/icons/normal_screen_icon_black.png" alt="Normal Screen" draggable="false">
                 </button>
               </div>

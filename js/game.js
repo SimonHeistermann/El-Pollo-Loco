@@ -41,6 +41,7 @@ let gameStarted = false;
  */
 function init() {
     // loadFrameRate();
+    addFullscreenEventListeners();
     canvas = getCanvas();
     setMuteState(isMuted);
     world = new World(canvas, keyboard);
